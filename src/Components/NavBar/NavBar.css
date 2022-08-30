@@ -10,16 +10,63 @@
 .ListParent{
     width: 20%;
 display: flex;
-justify-content: space-around;
+justify-content:space-between;
 list-style-type: none;
 margin: 0;
 padding: 0;
 overflow: hidden;
-
+margin-left: -200px;
 }
 .List {
     text-decoration: none;
 }
+
+.DollarSign{
+    width: 12px;
+height: 29px;
+margin-top: -5px;
+/* --price-regular-font */
+
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 29px;
+/* identical to box height, or 29px */
+
+
+
+
+/* --c-black */
+
+color: #1D1F22;
+
+}
+
+
+.Symbol{
+    display: flex;
+}
+
+.Nav-Link{
+    width: 65px;
+height: 20px;
+color: #1D1F22;
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 600;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height, or 19px */
+text-decoration: none;
+display: flex;
+align-items: center;
+text-align: center;
+text-transform: uppercase;
+
+}
+
+
 
 .Logoicon2{
     
@@ -36,7 +83,7 @@ overflow: hidden;
 }
 
 .ArrowIcon{
-
+margin-left: 3px;
 }
 
 .Dot{
@@ -46,4 +93,56 @@ overflow: hidden;
 
 .RDot{
     margin-left: 4px;
+}
+
+.CurrencyList{
+
+display: none;
+}
+
+.CurrencyListShow{
+    margin-top: -10px;
+    margin-left: -30px;
+    
+}
+
+.Btn{
+    width: 114px;
+    height: 45px;
+    font-family: 'Raleway';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 160%;
+text-align: center;
+color: #1D1F22;
+border: none;
+background-color: white;
+box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+transition-property:all;
+    transition-duration:0.5s;
+    transition-delay:0.1s;
+    transition-timing-function: ease-in;
+}
+
+.Btn:focus{
+    background-color:#EEEEEE; 
+}
+
+.Btn:hover{
+    background-color:#EEEEEE; 
+}
+
+
+.BtnList{
+    list-style-type: none;
+}
+
+.Cart{
+    display: flex;
+    cursor: pointer;
+}
+
+.NavCart{
+    margin-left: 10px;
 }

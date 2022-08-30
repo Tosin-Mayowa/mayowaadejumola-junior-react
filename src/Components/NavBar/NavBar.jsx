@@ -9,6 +9,11 @@ import ArrowDownIcon from '../Image/ArrowDown.png';
 import './NavBar.css'
 import Cart from '../Image/cart.png';
 import Dot from '../Image/dot.png';
+import {Link} from 'react-router-dom';
+
+
+
+
 
 
 const GET_CATEGORIES = gql`
@@ -33,9 +38,14 @@ class NavBar extends React.Component{
     super(props);
     this.state={
         isClicked:false
-    }
+    };
+    this.handleClick=this.handleClick.bind(this);
    }
     
+    handleClick(){
+      this.setState({isClicked:!this.state.isClicked})
+    }
+
     render(){
         return(
         <>
@@ -50,10 +60,13 @@ class NavBar extends React.Component{
               <nav className='Nav'>
                 <ul className='ListParent'>
               {
-                data.categories.map(cat=> <li className='List'> {cat.name}</li>)
+                data.categories.map(cat=>
+                <li className='List' >
+           <Link className='Nav-Link' to={cat.name==='all'?'/':`/${cat.name}`} >{cat.name}</Link> 
+                  </li>)
               }
                </ul>
-               <div>
+            <div>
                 <img src={Logoicon} alt="" />
                 <div className='Logoicon2'>
                     <img src={Logoicon2} alt="" />
@@ -62,28 +75,29 @@ class NavBar extends React.Component{
                     </div>
                 </div>
                </div>
-               <div className='Cart'>
+         <div className='Cart' onClick={this.handleClick}>
                 <div>
-                   <p>
+                   <div className='Symbol'>
+                   <p className='DollarSign'>
                     $
-                   {this.state.isClicked? <img src={ArrowUpIcon} alt="" className='ArrowIcon'/>:<img src={ArrowDownIcon} alt="" className='ArrowIcon'/>} 
                     </p>   
-              
-<ul>
-    <li><button>$ USD</button></li>
-       <li> <button>£ GBP</button></li>
-       <li><button>¥ JPY</button></li>
-       <li> <button>₽ RUB</button></li>
-</ul>
-</div>
-<div className='NavCart'>
-  <div className=''>
-  <img src={Cart} alt='cart' />
-  <div className='Dot'>
-  <img src={Dot} alt='dot' /> 
-  <img src={Dot} alt='dot' className='RDot' />
-  </div>
-  </div>
+                      <div>{this.state.isClicked? <img src={ArrowUpIcon} alt="" className='ArrowIcon' onClick={this.handleClick}/>:<img src={ArrowDownIcon} alt="" className='ArrowIcon' onClick={this.handleClick}/>} </div>
+                 </div>
+                <ul className={this.state.isClicked?'CurrencyListShow':'CurrencyList'}>
+                  <li className='BtnList'><button className='Btn'>$ USD</button></li>
+                  <li className='BtnList'> <button className='Btn'>£ GBP</button></li>
+                  <li className='BtnList'><button className='Btn'>¥ JPY</button></li>
+                  <li className='BtnList'> <button className='Btn'>₽ RUB</button></li>
+               </ul>
+             </div>
+             <div className='NavCart'>
+               <div className=''>
+                  <img src={Cart} alt='cart' />
+                  <div className='Dot'>
+                  <img src={Dot} alt='dot' /> 
+                  <img src={Dot} alt='dot' className='RDot' />
+                 </div>
+              </div>
 </div>
 </div>
 
