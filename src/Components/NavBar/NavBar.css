@@ -1,0 +1,49 @@
+
+.Nav{
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    height: 80px;
+    width: 100%;
+}
+
+.ListParent{
+    width: 20%;
+display: flex;
+justify-content: space-around;
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+
+}
+.List {
+    text-decoration: none;
+}
+
+.Logoicon2{
+    
+    margin-top: -27px;
+    margin-left: 7px;
+    position: relative;
+}
+
+.Logoicon3{
+  
+   position: absolute;
+   top: -9px;
+   left: 11px;
+}
+
+.ArrowIcon{
+
+}
+
+.Dot{
+    margin-top: -10px;
+    margin-left: 6px;
+}
+
+.RDot{
+    margin-left: 4px;
+}
