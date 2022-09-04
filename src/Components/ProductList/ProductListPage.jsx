@@ -19,6 +19,16 @@ query {
         gallery
         description
         category
+       attributes{
+        id
+        name
+        type
+        items{
+          displayValue
+          value
+          id
+        }
+      }
         prices{
           currency{
             label
@@ -38,6 +48,9 @@ class ProductListPage extends React.Component{
 
 
 render(){
+
+ 
+
     return(
     <>
        <Query query={GET_ALLPRODUCTS}>
@@ -65,4 +78,8 @@ render(){
 }
 
 
-export default ProductListPage;
+
+
+
+
+export default  ProductListPage;

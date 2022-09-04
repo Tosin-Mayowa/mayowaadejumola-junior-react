@@ -1,7 +1,7 @@
 import {Routes,Route} from 'react-router-dom';
 import React from 'react';
 import ProductListPage from '../src/Components/ProductList/ProductListPage';
-import NavBar from '../src/Components/NavBar/NavBar';
+import NavBar from './Components/NavBar/NavBar';
 import ClothesProductListPage from './Components/ClothesProductList/ClothesProductListPage';
 import TechProductsListPage from './Components/TechProductsList/TechProductsListPage';
 

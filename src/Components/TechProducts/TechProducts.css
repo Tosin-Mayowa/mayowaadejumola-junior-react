@@ -5,6 +5,7 @@
    height: 68px;
    text-transform: capitalize;
    
+   
    /* Heading / Desktop / H2 */
    
    font-family: 'Raleway';
@@ -22,3 +23,8 @@
    color: #1D1F22;
    
    }
+
+   .AllParentDiv{
+    margin-top: 50px;
+}
+

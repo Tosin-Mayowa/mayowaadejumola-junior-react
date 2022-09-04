@@ -16,6 +16,16 @@ query {
         gallery
         description
         category
+       attributes{
+        id
+        name
+        type
+        items{
+          displayValue
+          value
+          id
+        }
+      }
         prices{
           currency{
             label
@@ -42,7 +52,7 @@ class ClothesProductListPage extends React.Component{
               if (loading) return <div>Loading...</div>;
               if (error) return <div>Error </div>;
               const clothesProducts= data?.categories?.find(cat=>cat.name==='clothes');
-         console.log(clothesProducts);
+         console.log({cl:clothesProducts});
              return    (
                 <>
               <ClothesProducts clothesProducts={clothesProducts}/>

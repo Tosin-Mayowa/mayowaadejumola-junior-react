@@ -1,0 +1,29 @@
+.CartDiv{
+    width:52px;
+height: 52px;
+margin-top: -40px;
+margin-left: 12px;
+}
+
+
+
+.Dot{
+    margin-top: -11px;
+    margin-left: 6px;
+}
+
+.RDot{
+    margin-left: 4px;
+}
+
+.AllCartsDivHover{
+    position:absolute;
+    top:340px;
+    right: 30px;
+   
+} 
+
+.AllCartsDivOutOfStock{
+   display:none;
+  
+    }

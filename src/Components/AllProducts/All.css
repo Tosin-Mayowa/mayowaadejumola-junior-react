@@ -5,6 +5,7 @@ width: 299px;
 height: 68px;
 text-transform: capitalize;
 
+
 /* Heading / Desktop / H2 */
 
 font-family: 'Raleway';
@@ -21,4 +22,8 @@ align-items: center;
 
 color: #1D1F22;
 
+}
+
+.AllParentDiv{
+    margin-top: 60px;
 }

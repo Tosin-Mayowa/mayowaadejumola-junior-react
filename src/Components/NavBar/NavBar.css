@@ -1,149 +1,182 @@
 
-.Nav{
-    display: flex;
-    justify-content: space-around;
-    align-content: center;
-    height: 80px;
-    width: 100%;
-    padding: 10px;
+
+.Nav {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+  height: 80px;
+  width: 100%;
+  padding: 10px;
 }
 
-.ListParent{
-    width: 20%;
-display: flex;
-justify-content:space-between;
-list-style-type: none;
-margin: 0;
-padding: 0;
-overflow: hidden;
-margin-left: -200px;
+.ListParent {
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  margin-left: -200px;
 }
 .List {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-.DollarSign{
-    width: 12px;
-height: 29px;
-margin-top: -5px;
-/* --price-regular-font */
+.DollarSign {
+  width: 12px;
+  height: 29px;
+  margin-top: -5px;
+  /* --price-regular-font */
 
-font-family: 'Raleway';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 29px;
-/* identical to box height, or 29px */
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 29px;
+  /* identical to box height, or 29px */
 
+  /* --c-black */
 
+  color: #1d1f22;
+}
 
+.Symbol {
+  display: flex;
+}
 
-/* --c-black */
+.Nav-Link {
+  width: 65px;
+  height: 20px;
+  color: #1d1f22;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height, or 19px */
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+}
 
-color: #1D1F22;
+.Nav-Link:link {
+  color: #5ece7b;
+}
 
+.Nav-Link:visited {
+  color: #1d1f22;
+}
+
+.Nav-Link:hover {
+  color: #5ece7b;
+  border-bottom: 2px solid #5ece7b;
+}
+
+.Nav-Link:active {
+  color: #5ece7b;
+  border-bottom: 2px solid #5ece7b;
+}
+
+.DivCurrencyList {
+  margin-left: -30px;
+}
+
+.Logoicon2 {
+  margin-top: -27px;
+  margin-left: 7px;
+  position: relative;
+}
+
+.Logoicon3 {
+  position: absolute;
+  top: -9px;
+  left: 11px;
+}
+
+.ArrowIcon {
+  margin-left: 3px;
+}
+
+.Dot {
+  margin-top: -10px;
+  margin-left: 6px;
+}
+
+.RDot {
+  margin-left: 4px;
+}
+
+.CurrencyList {
+  display: none;
+}
+
+.CurrencyListShow {
+ 
+  margin-left: -30px;
+  z-index: 50;
+}
+
+.BtnC{
+  width: 114px;
+  height: 45px;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 160%;
+  text-align: center;
+  color: #1d1f22;
+  border: none;
+  background-color: white;
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-delay: 0.1s;
+  transition-timing-function: ease-in;
 }
 
 
-.Symbol{
-    display: flex;
+
+.BtnC:hover {
+  background-color: #eeeeee;
 }
 
-.Nav-Link{
-    width: 65px;
-height: 20px;
-color: #1D1F22;
-font-family: 'Raleway';
-font-style: normal;
-font-weight: 600;
-font-size: 16px;
-line-height: 19px;
-/* identical to box height, or 19px */
-text-decoration: none;
-display: flex;
-align-items: center;
-text-align: center;
-text-transform: uppercase;
-
+.BtnList {
+  list-style-type: none;
 }
 
-
-
-.Logoicon2{
-    
-    margin-top: -27px;
-    margin-left: 7px;
-    position: relative;
+.Cart {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
 }
 
-.Logoicon3{
+.NavCart {
+  margin-left: 10px;
+  position: relative;
+}
+
+.ItemsNo{
+  width: 16px;
+  height: 16px;
+  border: 1px solid #1d1f22;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #1d1f22;
+  color: #fff;
+  text-align: center;
+  right: -12px;
+  top: -7px;
   
-   position: absolute;
-   top: -9px;
-   left: 11px;
 }
 
-.ArrowIcon{
-margin-left: 3px;
-}
-
-.Dot{
-    margin-top: -10px;
-    margin-left: 6px;
-}
-
-.RDot{
-    margin-left: 4px;
-}
-
-.CurrencyList{
-
-display: none;
-}
-
-.CurrencyListShow{
-    margin-top: -10px;
-    margin-left: -30px;
-    
-}
-
-.Btn{
-    width: 114px;
-    height: 45px;
-    font-family: 'Raleway';
-font-style: normal;
-font-weight: 500;
-font-size: 18px;
-line-height: 160%;
-text-align: center;
-color: #1D1F22;
-border: none;
-background-color: white;
-box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-transition-property:all;
-    transition-duration:0.5s;
-    transition-delay:0.1s;
-    transition-timing-function: ease-in;
-}
-
-.Btn:focus{
-    background-color:#EEEEEE; 
-}
-
-.Btn:hover{
-    background-color:#EEEEEE; 
-}
-
-
-.BtnList{
-    list-style-type: none;
-}
-
-.Cart{
-    display: flex;
-    cursor: pointer;
-}
-
-.NavCart{
-    margin-left: 10px;
-}
+.Modal{
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(200,200,200,0.4),rgba(200,200,200,0.4));
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1000;
+  position: fixed;
+}   

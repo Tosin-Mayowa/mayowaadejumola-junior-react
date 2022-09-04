@@ -1,15 +1,14 @@
 import React from 'react';
 import './TechProductsChild.css'
-import Surface from '../Image/Surface.png';
-import Cart from '../Image/Vector.png';
-import Dot from '../Image/Vect.png';
+import AddCartBtn from '../AddCartBtn/AddCartBtn';
+
 
 class TechProductsChild extends React.Component{
 
    
 
 render(){
-    const {products,handleMouseEnter,handleMouseLeave}=this.props;
+    const {products,handleMouseEnter,handleMouseLeave,index}=this.props;
     return(
         <>
         
@@ -26,20 +25,11 @@ render(){
     </div>
   <div className='ImageDiv'><img src={products.gallery[0]} alt={products.name} className='AllImage'/></div>
 <h2 className={products.inStock===true?'AllText':'AllTextOutOfStock'}>{products.name}</h2>
-<h3 className={products.inStock===true?'AllPriceTag':'AllPriceTagOutOfStock'}>{`${products.prices[0].currency.symbol}${products.prices[0].amount}`}</h3>
-<div className={products.isHovered && products.inStock===true?'AllCartsDivHover':'AllCartsDivOutOfStock' }>
-  <img src={Surface} alt='surface' />
-  <div className='CartDiv'>
-  <img src={Cart} alt='cart' />
-  <div className='Dot'>
-  <img src={Dot} alt='dot' /> 
-  <img src={Dot} alt='dot' className='RDot' />
-  </div>
-  </div>
-</div>
+<h3 className={products.inStock===true?'AllPriceTag':'AllPriceTagOutOfStock'}>{`${products.prices[index].currency.symbol}${products.prices[index].amount}`}</h3>
+<AddCartBtn products={products} />
 </div>
 
-        
+     
         
         </>
     )
