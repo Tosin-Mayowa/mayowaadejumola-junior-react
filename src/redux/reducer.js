@@ -1,6 +1,7 @@
 const initialState = {
   carts: [],
   index: 0,
+ 
 };
 
 export default function reducer(state = initialState, action) {
@@ -29,7 +30,8 @@ export default function reducer(state = initialState, action) {
               }, []),
             ],
           };
-    return newState;
+          const realState={...newState,carts:newState.carts?.map(item=>({...item,qty:1}))};
+    return realState;
   }
 
   if (action.type === "USD") {
@@ -50,7 +52,12 @@ export default function reducer(state = initialState, action) {
 
   if (action.type === "RUB") {
     return { ...state, index: action.payload };
-  }
+  };
+
+  
+
+
+
 
   return state;
 }
