@@ -2,6 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import "./CartPage.css";
 import { withRouter } from "../../withRouter";
+import ProductDescriptionChild from "../ProductsDescriptionChild/ProductDescriptionChild";
+import Rectangle from "../Image/Rectangle.png";
+import Slide from "../Image/slide.png";
+import Slide1 from "../Image/slide1.png";
 
 class CartPage extends React.Component {
   constructor(props) {
@@ -127,7 +131,6 @@ class CartPage extends React.Component {
               <div className="CartPageMainDiv">
                 <div>
                   <p className="CartPageSubTitle">
-                  
                     {this.getPrefixText(cart.name)}
                   </p>
                   <p className="CartNameText">
@@ -137,31 +140,20 @@ class CartPage extends React.Component {
                   </p>
                   <p className="Price">{`${cart.prices[index].currency.symbol}${cart.prices[index].amount}`}</p>
                   <div className="Attribute">
-                    {cart.attributes.map((att) => {
+                    {cart?.attributes?.map((att) => {
                       if (att.type === "swatch") {
                         return (
                           <div key={att.id} className="CartAttributeDiv">
                             <p className="CartPageNameAtt">{att.name}</p>
                             <div className="CartAttItemwrapper">
-                              {swatchItems.map((item) => (
+                              {swatchItems?.map((item) => (
                                 <div key={item} className={item}></div>
                               ))}
                             </div>
                           </div>
                         );
                       } else {
-                        return (
-                          <div key={att.id} className="CartAttributeDiv">
-                            <p className="CartPageNameAtt">{att.name}</p>
-                            <div className="CartAttItemwrapper">
-                              {att.items.map((item) => (
-                                <div key={item.id} className="CartPageAttBox">
-                                  {item.value}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        );
+                        return <ProductDescriptionChild att={att} />;
                       }
                     })}
                   </div>
@@ -182,12 +174,26 @@ class CartPage extends React.Component {
                       -
                     </div>
                   </div>
-                  <div>
+                  <div className="MainImageParent">
                     <img
                       src={cart.gallery[0]}
                       alt="product"
                       className="ImageCart"
                     />
+                    <div className="VectorParent">
+                      <div className="Vector">
+                        <img src={Rectangle} alt="" />
+                        <div className="VectorChild">
+                          <img src={Slide} alt="" />
+                        </div>
+                      </div>
+                      <div className="Vector2">
+                        <img src={Rectangle} alt="" />
+                        <div className="VectorChild">
+                          <img src={Slide1} alt="" />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

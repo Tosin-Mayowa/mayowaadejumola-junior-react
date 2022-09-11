@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import "./CartsModal.css";
 import { withRouter } from "../../withRouter";
+import CartModalChild from "../CartModalChild/CartModalChild";
 class CartsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -118,16 +119,8 @@ class CartsModal extends React.Component {
                       );
                     } else {
                       return (
-                        <div key={att.id} className="AttMainDiv">
-                          <p>{att.name}</p>
-                          <div className="AttItemwrapper">
-                            {att.items.map((item) => (
-                              <div key={item.id} className="AttItem">
-                                {item.value}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+                        
+                      <CartModalChild att={att}/>
                       );
                     }
                   })}

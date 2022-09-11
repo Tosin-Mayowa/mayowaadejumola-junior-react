@@ -1,0 +1,36 @@
+.CartAttributeBoxOn{
+    width: 25px;
+  height: 25px;
+    color: #fff;
+    background: #1D1F22;
+    border: 1px solid #1D1F22;
+    text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+padding: 7px;
+    }
+
+    .CartAttributeBoxOff{
+        width: 25px;
+  height: 25px;
+        border: 1px solid #1D1F22;
+        text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+padding: 7px;
+        }
+
+
+.CartAttributeBoxOff:not(.ProductAttributeBoxOff:first-child){
+    margin-left: 8px;
+  }
+
+  .CartAttributeBoxOn:not(.ProductAttributeBoxOn:first-child){
+    margin-left: 8px;
+  }
+
+ 

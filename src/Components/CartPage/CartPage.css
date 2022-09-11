@@ -47,45 +47,38 @@
   line-height: 40px;
 }
 
-.CartAttributeDiv{
-  
-    display: flex;
-    flex-direction: column;
-  
-  
+.CartAttributeDiv {
+  display: flex;
+  flex-direction: column;
 }
 .CartPageNameAtt {
- 
+  font-family: "Roboto Condensed";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  text-align: center;
 
-font-family: 'Roboto Condensed';
-font-style: normal;
-font-weight: 700;
-font-size: 18px;
-line-height: 18px;
-
-
-display: flex;
-flex-direction: row;
-flex-wrap: nowrap;
-align-items: center;
-text-align: center;
-
-color: #1D1F22;
+  color: #1d1f22;
 }
 
 .CartPageAttBox {
   width: 63px;
   height: 45px;
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: #ffffff;
   border: 1px solid #1d1f22;
 }
 
-.CartPageAttBox:not(.CartPageAttBox:first-child){
+.CartPageAttBox:not(.CartPageAttBox:first-child) {
   margin-left: 8px;
 }
 
@@ -113,10 +106,9 @@ align-items: center;
 }
 .Tax {
   display: flex;
- 
 }
 
-.Taxp{
+.Taxp {
   display: flex;
   width: 184px;
   height: 28px;
@@ -127,8 +119,8 @@ align-items: center;
   line-height: 28px;
 }
 
-.Taxvalue{
-margin-left: -85px;
+.Taxvalue {
+  margin-left: -85px;
 }
 
 .Ext {
@@ -163,8 +155,8 @@ margin-left: -85px;
 }
 
 .Attribute {
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .Quantity {
@@ -181,7 +173,6 @@ flex-direction: column;
   border: 1px solid #1d1f22;
   padding-bottom: 2px;
   padding-left: 10px;
-  
 }
 
 .ContBtn {
@@ -198,23 +189,20 @@ flex-direction: column;
 .Quantity-Control {
   margin-top: 20px;
   display: flex;
-justify-content: space-around;
+  justify-content: space-around;
 }
 
 .CartAttItemwrapper {
   display: flex;
-  
+
   margin-top: -6px;
 }
 
-.CartPageMainDiv{
+.CartPageMainDiv {
   display: grid;
   grid-template-columns: 80% 20%;
   gap: 15px;
-
 }
-
-
 
 .CDivG {
   background-color: #44ff03;
@@ -298,4 +286,31 @@ justify-content: space-around;
   padding-right: 6px;
   padding-left: 6px;
   margin-left: 6px;
+}
+
+.VectorChild{
+  position: absolute;
+ 
+  top:5px;
+  left:8px
+}
+
+.Vector{
+  position: relative;
+}
+
+.VectorParent{
+  position: absolute;
+  display: flex;
+  top: 200px;
+  left: 60px;
+  cursor: pointer;
+}
+.Vector2{
+  position: relative;
+  margin-left: 5px;
+}
+
+.MainImageParent{
+  position: relative;
 }
