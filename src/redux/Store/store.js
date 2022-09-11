@@ -1,10 +1,7 @@
-import { createStore } from 'redux';
+import { configureStore } from '@reduxjs/toolkit'
 import reducer from '../reducer';
 
-// const initialStore={
-//     carts:[],
-//     index:0
-// }
 
 
-export const store = createStore(reducer);
+
+export const store = configureStore({ reducer: reducer });

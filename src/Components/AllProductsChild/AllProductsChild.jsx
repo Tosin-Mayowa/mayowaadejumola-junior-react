@@ -1,7 +1,7 @@
 import React from 'react';
 import './AllProducts.css';
 import AddCartBtn from '../AddCartBtn/AddCartBtn';
-
+import { Link } from "react-router-dom";
 class AllProductsChild extends React.Component{
 
    
@@ -13,7 +13,7 @@ render(){
         
         <div 
         key={products.id} 
-        className={products.inStock===true?'AllinnerDiv':'AllinnerDivOutStock'} 
+        className={products.inStock===true && products.attributes.length !==0?'AllinnerDiv':'AllinnerDivOutStock'} 
         onMouseEnter={() => handleMouseEnter(products.idx) }
         onMouseLeave={() => handleMouseLeave(products.idx) }
         >
@@ -22,7 +22,21 @@ render(){
   >
     <p>OUT OF STOCK</p>
     </div>
-  <div className='ImageDiv'><img src={products.gallery[0]} alt={products.name} className='AllImage'/></div>
+  <div className='ImageDiv'>{products.inStock === true ? (
+              <Link to={`/${products.category}/${products.id}`}>
+                <img
+                  src={products.gallery[0]}
+                  alt={products.name}
+                  className="AllImage"
+                />
+              </Link>
+            ) : (
+              <img
+                src={products.gallery[0]}
+                alt={products.name}
+                className="AllImage"
+              />
+            )}</div>
 <h2 className={products.inStock===true?'AllText':'AllTextOutOfStock'}>{products.name}</h2>
 <h3 className={products.inStock===true?'AllPriceTag':'AllPriceTagOutOfStock'}>{`${products.prices[index].currency.symbol}${products.prices[index].amount}`}</h3>
 <AddCartBtn products={products} />

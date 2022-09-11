@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./CartsModal.css";
-
+import { withRouter } from "../../withRouter";
 class CartsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -12,9 +12,11 @@ class CartsModal extends React.Component {
         total: x.prices[this.props.index].amount,
       })),
       totalAmount: 0,
+      active: false,
     };
     this.handleIncrease = this.handleIncrease.bind(this);
     this.handleDecrease = this.handleDecrease.bind(this);
+    this.navigatePage = this.navigatePage.bind(this);
   }
 
   handleIncrease(id, ind) {
@@ -42,34 +44,61 @@ class CartsModal extends React.Component {
       return {
         cartsItem: newItems,
         totalAmount: st.total === 0 ? st.totalAmount + totalVal : totalVal,
+        active: true,
       };
     });
-    this.setState();
   }
 
   handleDecrease(id) {
     const newItems = this.state.cartsItem.map((item) => {
       if (id === item.id) {
-        return { ...item, isClick: true, qty: item.qty > 1 ? item.qty - 1 : 1 };
+        return {
+          ...item,
+          isClick: true,
+          qty: item.qty > 1 ? item.qty - 1 : 1,
+          total:
+            item.qty > 1
+              ? (item.total / item.qty) * (item.qty - 1)
+              : item.total / item.qty,
+        };
       } else {
         return item;
       }
     });
 
-    this.setState({ cartsItem: newItems });
+    const totalVal = newItems
+      .map((item) => item.total)
+      .reduce((a, b) => a + b, 0)
+      .toFixed(2);
+
+    this.setState((st) => {
+      return {
+        cartsItem: newItems,
+        totalAmount: st.total === 0 ? st.totalAmount + totalVal : totalVal,
+        active: true,
+      };
+    });
+  }
+
+  navigatePage() {
+    this.props.navigate("/cartPage");
   }
 
   render() {
-    const { index } = this.props;
+    const { index, initialTotal } = this.props;
     const swatchItems = ["DivG", "DivC", "DivB", "DivBl", "DivW"];
-    const currency=['$','£','A$','¥','₽']
+    const currency = ["$", "£", "A$", "¥", "₽"];
+    const { active, cartsItem, totalAmount } = this.state;
+    const price = `${currency[index]}${totalAmount}`;
+    const initialPrice = `${currency[index]}${initialTotal}`;
+
     return (
       <>
         <div className="CartWrapper">
           <h2 className="BagHeader">
             `My Bag, {this.props.carts.length} items`
           </h2>
-          {this.state.cartsItem?.map((cart) => (
+          {cartsItem?.map((cart) => (
             <div className="Bag">
               <div>
                 <p> {cart.name}</p>
@@ -104,36 +133,37 @@ class CartsModal extends React.Component {
                   })}
                 </div>
               </div>
-              <div
-                className={
-                  cart.attributes.length === 0 ? "Control" : "ControlBtn"
-                }
-              >
-                <div
-                  className="BtnSy"
-                  onClick={() => this.handleIncrease(cart.id, index)}
-                >
-                  +
+              <div className="Control">
+                <div>
+                  <div
+                    className="BtnSy"
+                    onClick={() => this.handleIncrease(cart.id, index)}
+                  >
+                    +
+                  </div>
+                  <div className="Counter">{cart.qty}</div>
+                  <div
+                    className="BtnSy"
+                    onClick={() => this.handleDecrease(cart.id, index)}
+                  >
+                    -
+                  </div>
                 </div>
-                <div className="Counter">{cart.qty}</div>
-                <div
-                  className="BtnSy"
-                  onClick={() => this.handleDecrease(cart.id, index)}
-                >
-                  -
+                <div>
+                  <img src={cart.gallery[0]} alt="product" className="Image" />
                 </div>
               </div>
-              <div>
-                <img src={cart.gallery[0]} alt="product" className="Image" />
-              </div>
+              
             </div>
           ))}
           <div className="Cart-Total">
             <p>Total</p>
-            <p>{currency[index]}{this.state.totalAmount}</p>
+            <p>{active ? price : initialPrice}</p>
           </div>
           <div className="Button">
-            <button className="Btn-view">VIEW BAG</button>
+            <button className="Btn-view" onClick={this.navigatePage}>
+              VIEW BAG
+            </button>
             <button className="Btn-view Left">CHECK OUT</button>
           </div>
         </div>
@@ -143,8 +173,8 @@ class CartsModal extends React.Component {
 }
 
 function mapStateToProps(state) {
-  const { carts, index } = state;
-  return { carts: carts, index: index };
+  const { carts, index, initialTotal } = state;
+  return { carts: carts, index: index, initialTotal: initialTotal };
 }
 
-export default connect(mapStateToProps)(CartsModal);
+export default withRouter(connect(mapStateToProps)(CartsModal));

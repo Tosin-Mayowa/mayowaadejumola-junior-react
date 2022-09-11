@@ -1,0 +1,137 @@
+.ImageFirstChild{
+    width:87px;
+    height:87px;
+}
+
+.ImageSecondChild{
+    width: 450px;
+    height: 450px;
+}
+
+.ProductFirstName{
+height: 27px;
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 600;
+font-size: 30px;
+line-height: 27px;
+color: #1D1F22;
+}
+
+.ProductSubName{
+height: 27px;
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 400;
+font-size: 30px;
+line-height: 27px;
+color: #1D1F22;
+}
+
+.ProductAttributeName{
+    height: 18px;
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    color: #1D1F22;
+     
+}
+
+.ProductAttributeBoxOn{
+width: 63px;
+height: 45px;
+color: #fff;
+background: #1D1F22;
+border: 1px solid #1D1F22;
+}
+
+.ProductDescAttMainDiv {
+    display: flex;
+    flex-direction: column;
+  }
+  .CDivG {
+    background-color: #44ff03;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .CDivC {
+    background-color: #03fff7;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .CDivB {
+    background-color: #030bff;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .CDivBl {
+    background-color: #000;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+  
+  .CDivW {
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+  

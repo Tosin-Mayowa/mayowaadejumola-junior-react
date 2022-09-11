@@ -1,6 +1,8 @@
 import React from "react";
 import "./ClothesProductsChild.css";
 import AddCartBtn from "../AddCartBtn/AddCartBtn";
+import { Link } from "react-router-dom";
+
 class ClothesProductsChild extends React.Component {
   render() {
     const { products, handleMouseEnter, handleMouseLeave, index } = this.props;
@@ -10,7 +12,7 @@ class ClothesProductsChild extends React.Component {
         <div
           key={products.id}
           className={
-            products.inStock === true ? "AllinnerDiv" : "AllinnerDivOutStock"
+            products.inStock === true && products.attributes.length !==0 ? "AllinnerDiv" : "AllinnerDivOutStock"
           }
           onMouseEnter={() => handleMouseEnter(products.idx)}
           onMouseLeave={() => handleMouseLeave(products.idx)}
@@ -23,15 +25,25 @@ class ClothesProductsChild extends React.Component {
             <p>OUT OF STOCK</p>
           </div>
           <div className="ImageDiv">
-            <img
-              src={products.gallery[0]}
-              alt={products.name}
-              className="AllImage"
-            />
+          {products.inStock === true ? (
+              <Link to={`/${products.category}/${products.id}`}>
+                <img
+                  src={products.gallery[0]}
+                  alt={products.name}
+                  className="AllImage"
+                />
+              </Link>
+            ) : (
+              <img
+                src={products.gallery[0]}
+                alt={products.name}
+                className="AllImage"
+              />
+            )}
           </div>
           <h2
             className={
-              products.inStock === true ? "AllText" : "AllTextOutOfStock"
+              products.inStock === true  ? "AllText" : "AllTextOutOfStock"
             }
           >
             {products.name}

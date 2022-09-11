@@ -9,12 +9,12 @@ import { addToCart } from "../../redux/action";
 class AddCartBtn extends React.Component {
   render() {
     const { products } = this.props;
-    console.log({ cartbtn: products });
+   
 
     return (
       <div
         className={
-          products.isHovered && products.inStock === true
+          products.isHovered && products.inStock === true && products.attributes.length !==0
             ? "AllCartsDivHover"
             : "AllCartsDivOutOfStock"
         }
