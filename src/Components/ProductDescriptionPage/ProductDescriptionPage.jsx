@@ -75,7 +75,7 @@ class ProductDescriptionPage extends React.Component {
   }
 
   render() {
-    const swatchItems = ["CDivG", "CDivC", "CDivB", "CDivBl", "CDivW"];
+    const swatchItems = ["CDivGP", "CDivCP", "CDivBP", "CDivBlP", "CDivWP"];
     const { index } = this.props;
     return (
       <>
@@ -122,7 +122,7 @@ class ProductDescriptionPage extends React.Component {
                           ? ""
                           : this.formatText(product.name)}
                       </p>{" "}
-                      <div className="AttMainDivWrap">
+                      <div className="ProductDescAttMainDivWrap">
                         {product.attributes.map((att) => {
                           if (att.type === "swatch") {
                             return (
@@ -145,9 +145,9 @@ class ProductDescriptionPage extends React.Component {
                         })}
                       </div>
                       <p className="PriceSecondChild">Price:</p>
-                      <p>{`${product.prices[index].currency.symbol}${product.prices[index].amount}`}</p>
-                      <div>
-                        <button onClick={() => this.props.addToCart(product)}>
+                      <p className="PriceValue">{`${product.prices[index].currency.symbol}${product.prices[index].amount}`}</p>
+                      <div className="ButtonAddDiv">
+                        <button className="ButtonAdd" onClick={() => this.props.addToCart(product)}>
                           Add To Cart
                         </button>
                       </div>
