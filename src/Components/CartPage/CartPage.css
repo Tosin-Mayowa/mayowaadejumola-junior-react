@@ -31,7 +31,7 @@
 .CartPageWrap {
   width: 100%;
   height: 100vh;
-
+margin-top: 100px;
   padding: 20px;
   background-color: #fff;
 }

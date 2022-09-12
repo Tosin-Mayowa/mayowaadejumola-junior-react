@@ -14,11 +14,11 @@ class CartPage extends React.Component {
       cartsItem: Array.from(this.props.carts, (x, i) => ({
         ...x,
         isClick: false,
-        total: x.prices[this.props.index].amount,
+        total: x.prices[this.props.index].amount,count:0
       })),
       totalAmount: 0,
       active: false,
-      count:0
+      
     };
     this.handleIncrease = this.handleIncrease.bind(this);
     this.handleDecrease = this.handleDecrease.bind(this);
@@ -55,7 +55,7 @@ class CartPage extends React.Component {
         cartsItem: newItems,
         totalAmount: st.total === 0 ? st.totalAmount + totalVal : totalVal,
         active: true,
-        count:st.count
+     
       };
     });
   }
@@ -87,7 +87,7 @@ class CartPage extends React.Component {
         cartsItem: newItems,
         totalAmount: st.total === 0 ? st.totalAmount + totalVal : totalVal,
         active: true,
-        count:st.count
+       
       };
     });
   }
@@ -113,17 +113,43 @@ class CartPage extends React.Component {
     return newText;
   }
   
-  decreaseSlideCount(value){
-    this.setState({count:this.state.count!==0?this.state.count-1:0})
+  decreaseSlideCount(value,id){
+const newItems= this?.state?.cartsItem?.map(item=>{
+  if(item.id===id){
+    return {...item,count:item.count!==0?item.count-1:0}
+  }else{
+    return item
+  }
+})
+
+
+this.setState((st) => {
+  return {
+    cartsItem: newItems,
+    totalAmount: st.total ,
+    active: st.active,
+    
+  };
+});
   }
 
-  increaseSlideCount(value){
+  increaseSlideCount(value,id){
+
+    const newItems= this?.state?.cartsItem?.map(item=>{
+      if(item.id===id){
+        return {...item,count:item.count===0 && value !==0?item.count+1:value}
+      }else{
+        return item
+      }
+    })
+
+
     this.setState((st)=>{
       return{
-        cartsItem:st.cartsItem,
+        cartsItem:newItems,
         totalAmount: st.totalAmount,
       active: st.active,
-        count:st.count===0 || st.count<value?st.count+1:value
+        
       }
     })
   }
@@ -140,7 +166,7 @@ class CartPage extends React.Component {
     const initialPrice = `${currency[index]}${initialTotal}`;
     const iPriceTax = ((21 * initialTotal) / 100).toFixed(2);
     const initialPriceTax = `${currency[index]}${iPriceTax}`;
-    console.log({ count: this.state.count });
+    
 
     return (
       <>
@@ -197,24 +223,24 @@ class CartPage extends React.Component {
                   </div>
                   <div className="MainImageParent">
                     <img
-                      src={cart.gallery[this.state.count]}
+                      src={cart.gallery[cart.count]}
                       alt="product"
                       className="ImageCart"
                     />
-                    <div className="VectorParent">
+                    {cart.gallery.length>1?<div className="VectorParent">
                       <div className="Vector">
                         <img src={Rectangle} alt="" />
-                        <div className="VectorChild" onClick={()=>this.decreaseSlideCount(cart.gallery.length-1)}>
+                        <div className="VectorChild" onClick={()=>this.decreaseSlideCount(cart.gallery.length-1,cart.id)}>
                           <img src={Slide} alt="" />
                         </div>
                       </div>
-                      <div className="Vector2" onClick={()=>this.increaseSlideCount(cart.gallery.length-1)}>
+                      <div className="Vector2" onClick={()=>this.increaseSlideCount(cart.gallery.length-1,cart.id)}>
                         <img src={Rectangle} alt="" />
                         <div className="VectorChild">
                           <img src={Slide1} alt="" />
                         </div>
                       </div>
-                    </div>
+                    </div>:''}
                   </div>
                 </div>
               </div>
