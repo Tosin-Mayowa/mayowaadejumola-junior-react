@@ -5,3 +5,5 @@ export const aud= ()=>({ type: 'AUD',payload:2});
 export const jpy= ()=>({ type: 'JPY',payload:3});
 export const rub= ()=>({ type: 'RUB',payload:4});
 export const initialTotal= ()=>({ type: 'INITIAL TOTAL'});
+export const isCloseSwitcher=()=>({ type: 'CLOSE SWITCHER'});
+export const isOpenSwitcher=()=>({ type: 'Open SWITCHER'});

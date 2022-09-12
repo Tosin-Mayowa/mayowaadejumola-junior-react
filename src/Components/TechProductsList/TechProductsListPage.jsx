@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo'; 
 import TechProducts from '../TechProducts/TechProducts';
+import Loading from '../Loading/Loading';
 
 
 
@@ -53,7 +54,7 @@ render(){
     <>
        <Query query={GET_ALLPRODUCTS}>
         {({ loading, error, data }) => {
-          if (loading) return <div>Loading...</div>;
+          if (loading) return <Loading/>;
           if (error) return <div>Error </div>;
           const techProducts= data?.categories?.find(cat=>cat.name==='tech');
      

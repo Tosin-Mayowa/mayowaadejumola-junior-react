@@ -1,7 +1,8 @@
 const initialState = {
   carts: [],
   index: 0,
-  initialTotal:0
+  initialTotal:0,
+  isOpenedSwitcher:false
 };
 
 export default function reducer(state = initialState, action) {
@@ -59,7 +60,14 @@ export default function reducer(state = initialState, action) {
     return { ...state, initialTotal:state.carts.reduce((a, b) => a + b.prices[state.index].amount, 0).toFixed(2) };
   };
 
+  if (action.type === "CLOSE SWITCHER"){
+    return {...state, isOpenedSwitcher:false}
+  };
 
+  if (action.type === "Open SWITCHER"){
+    
+    return {...state, isOpenedSwitcher:true}
+  }
 
 
   return state;

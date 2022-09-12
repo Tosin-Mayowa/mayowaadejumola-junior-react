@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { isCloseSwitcher } from "../../redux/action";
 import AllProductsChild from "../AllProductsChild/AllProductsChild";
 import "./All.css";
 
@@ -57,6 +58,7 @@ class AllProducts extends React.Component {
 
     return (
       <>
+      <div className="AllProductsWrapper" onClick={()=>this.props.isCloseSwitcher()}>
         <h2 className="Title">{name}</h2>
         <div className="AllParentDiv">
           {allProducts?.map((products) => (
@@ -69,10 +71,19 @@ class AllProducts extends React.Component {
             />
           ))}
         </div>
+        </div>
       </>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+    isCloseSwitcher:()=>dispatch(isCloseSwitcher()),
+    
+  };
+};
 
 function mapStateToProps(state) {
   const { index } = state;
@@ -80,4 +91,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(AllProducts);
+export default connect(mapStateToProps,mapDispatchToProps)(AllProducts);

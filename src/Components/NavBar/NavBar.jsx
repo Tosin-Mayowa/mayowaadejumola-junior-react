@@ -11,7 +11,7 @@ import Cart from "../Image/cart.png";
 import Dot from "../Image/dot.png";
 import { Link } from "react-router-dom";
 import CartsModal from "../CartsModal/CartsModal";
-import { usd, gbp, aud, jpy, rub, initialTotal } from "../../redux/action";
+import { usd, gbp, aud, jpy, rub, initialTotal,isCloseSwitcher,isOpenSwitcher } from "../../redux/action";
 import { connect } from "react-redux";
 
 const GET_CATEGORIES = gql`
@@ -34,28 +34,16 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isClicked: 0,
-      isOpen: false,
-      isClose: 1
-    };
-    this.handleClick = this.handleClick.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-
-  handleClick() {
-    this.setState((st) => {
-      return {
-        isClicked: st.isClicked===0?1:1,
-        isClose: st.isClose===0?1:1
-      };
-    });
-    
-  }
-
-  handleClose() {
-  this.setState({isClose:0})
      
+      isOpen: false,
+    
+    };
+   
   }
+
+  
+
+  
 
   render() {
     console.log({state:this.state});
@@ -94,21 +82,21 @@ class NavBar extends React.Component {
                     <div className="Cart" >
                       <div className="Symbol">
                         <div className="Symbol">
-                          <p className="DollarSign" onClick={this.handleClose}>$</p>
+                          <p className="DollarSign" onClick={()=>this.props.isOpenSwitcher()}>$</p>
                           <div>
-                            {this.state.isClicked && this.state.isClose ? (
+                            {this.props.isOpenedSwitcher ? (
                               <img
                                 src={ArrowUpIcon}
                                 alt=""
                                 className="ArrowIcon"
-                                onClick={this.handleClose}
+                                onClick={()=>this.props.isCloseSwitcher()}
                               />
                             ) : (
                               <img
                                 src={ArrowDownIcon}
                                 alt=""
                                 className="ArrowIcon"
-                                onClick={this.handleClick}
+                                onClick={()=>this.props.isOpenSwitcher()}
                               />
                             )}
                           </div>
@@ -137,7 +125,7 @@ class NavBar extends React.Component {
                       <div className="DivCurrencyList">
                         <ul
                           className={
-                            this.state.isClicked && this.state.isClose
+                          this.props.isOpenedSwitcher
                               ? "CurrencyListShow"
                               : "CurrencyList"
                           }
@@ -147,7 +135,7 @@ class NavBar extends React.Component {
                               className="BtnC"
                               onClick={() => {
                                 this.props.usd();
-                                this.handleClose();
+                                this.props.isCloseSwitcher();
                               }}
                             >
                               $ USD
@@ -158,7 +146,7 @@ class NavBar extends React.Component {
                               className="BtnC"
                               onClick={() => {
                                 this.props.gbp();
-                                this.handleClose();
+                                this.props.isCloseSwitcher();
                               }}
                             >
                               £ GBP
@@ -169,7 +157,7 @@ class NavBar extends React.Component {
                               className="BtnC"
                               onClick={() => {
                                 this.props.jpy();
-                                this.handleClose();
+                                this.props.isCloseSwitcher();
                               }}
                             >
                               ¥ JPY
@@ -180,7 +168,7 @@ class NavBar extends React.Component {
                               className="BtnC"
                               onClick={() => {
                                 this.props.rub();
-                                this.handleClose();
+                                this.props.isCloseSwitcher();
                               }}
                             >
                               ₽ RUB
@@ -191,7 +179,7 @@ class NavBar extends React.Component {
                               className="BtnC"
                               onClick={() => {
                                 this.props.aud();
-                                this.handleClose();
+                                this.props.isCloseSwitcher();
                               }}
                             >
                               A$ AUD
@@ -225,11 +213,13 @@ const mapDispatchToProps = (dispatch) => {
     jpy: () => dispatch(jpy()),
     rub: () => dispatch(rub()),
     initialTotal: () => dispatch(initialTotal()),
+    isCloseSwitcher:()=>dispatch(isCloseSwitcher()),
+    isOpenSwitcher:()=>dispatch(isOpenSwitcher())
   };
 };
 function mapStateToProps(state) {
-  const { carts } = state;
-  return { carts: carts };
+  const { carts,isOpenedSwitcher } = state;
+  return { carts: carts, isOpenedSwitcher:isOpenedSwitcher};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

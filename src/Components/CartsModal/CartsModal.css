@@ -1,3 +1,8 @@
+.CartWrapper::-webkit-scrollbar {
+  width: 10px;
+}
+
+
 .BagHeader {
   width: 118px;
   height: 26px;

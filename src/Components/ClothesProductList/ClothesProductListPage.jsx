@@ -2,6 +2,7 @@ import React from "react";
 import { gql } from 'apollo-boost';
 import { Query } from 'react-apollo'; 
 import ClothesProducts from "../ClothesProducts/ClothesProducts";
+import Loading from "../Loading/Loading";
 
 
 const GET_CLOTHESPRODUCTS = gql`
@@ -49,7 +50,7 @@ class ClothesProductListPage extends React.Component{
         <>
            <Query query={GET_CLOTHESPRODUCTS}>
             {({ loading, error, data }) => {
-              if (loading) return <div>Loading...</div>;
+              if (loading) return <Loading/>;
               if (error) return <div>Error </div>;
               const clothesProducts= data?.categories?.find(cat=>cat.name==='clothes');
         

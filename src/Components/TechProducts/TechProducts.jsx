@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { isCloseSwitcher} from "../../redux/action";
 import TechProductsChild from "../TechProductsChild/TechProductsChild";
 import "./TechProducts.css";
 
@@ -53,10 +54,11 @@ class TechProducts extends React.Component {
   render() {
     const { techProducts } = this.state;
     const { name } = this.props.techProducts;
+    console.log(this.props.isCloseSwitcher());
 
     return (
       <>
-      <div className="TechWrapper">
+      <div className="TechWrapper" onClick={()=>this.props.isCloseSwitcher()}>
         <h2 className="Title">{name}</h2>
         <div className="AllParentDiv">
           {techProducts?.map((products) => (
@@ -75,9 +77,17 @@ class TechProducts extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    
+    isCloseSwitcher:()=>dispatch(isCloseSwitcher()),
+    
+  };
+};
+
 function mapStateToProps(state) {
   const { index } = state;
   return { index: index };
 }
 
-export default connect(mapStateToProps)(TechProducts);
+export default connect(mapStateToProps,mapDispatchToProps)(TechProducts);
