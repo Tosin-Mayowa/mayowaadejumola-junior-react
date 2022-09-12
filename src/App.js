@@ -5,7 +5,8 @@ import NavBar from './Components/NavBar/NavBar';
 import ClothesProductListPage from './Components/ClothesProductList/ClothesProductListPage';
 import TechProductsListPage from './Components/TechProductsList/TechProductsListPage';
 import CartPage from './Components/CartPage/CartPage';
-import ProductDescriptionPage from './Components/ProductDescriptionPage/ProductDescriptionPage';
+
+import ProductDescPage from './Components/ProductDescriptionPage/ProductDescPage';
 
 
 
@@ -23,9 +24,9 @@ class App extends React.Component{
 <Route path='/clothes' element={<ClothesProductListPage/>}/>
 <Route path='/tech' element={<TechProductsListPage/>}/>
 <Route path='/cartPage' element={<CartPage/>}/>
-<Route path='/tech/:id' element={<ProductDescriptionPage/>}  />
-<Route path='/:id' element={<ProductDescriptionPage/>}  />
-<Route path='/clothes/:id' element={<ProductDescriptionPage/>}  />
+<Route path='/tech/:id' element={<ProductDescPage/>}  />
+<Route path='/:id' element={<ProductDescPage/>}  />
+<Route path='/clothes/:id' element={<ProductDescPage/>}  />
 </Routes> 
 
 </>

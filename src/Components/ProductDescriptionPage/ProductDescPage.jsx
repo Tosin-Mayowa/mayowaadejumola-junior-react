@@ -41,7 +41,7 @@ const GET_PRODUCTS = gql`
   }
 `;
 
-class ProductDescriptionPage extends React.Component {
+class ProductDescPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -178,5 +178,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withParams(
-  connect(mapStateToProps, mapDispatchToProps)(ProductDescriptionPage)
+  connect(mapStateToProps, mapDispatchToProps)(ProductDescPage)
 );
