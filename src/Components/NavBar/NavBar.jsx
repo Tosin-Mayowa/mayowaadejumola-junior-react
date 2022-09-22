@@ -4,15 +4,14 @@ import { Query } from "react-apollo";
 import Logoicon from "../Image/svg3.png";
 import Logoicon2 from "../Image/svg19.png";
 import Logoicon3 from "../Image/svg21.png";
-import ArrowUpIcon from "../Image/ArrowUp.png";
-import ArrowDownIcon from "../Image/ArrowDown.png";
+
 import "./NavBar.css";
-import Cart from "../Image/cart.png";
-import Dot from "../Image/dot.png";
-import { Link } from "react-router-dom";
+
+import { NavLink } from 'react-router-dom';
 import CartsModal from "../CartsModal/CartsModal";
-import { usd, gbp, aud, jpy, rub, initialTotal,isCloseSwitcher,isOpenSwitcher } from "../../redux/action";
-import { connect } from "react-redux";
+
+
+import CurrencyList from "../CurrencyList/CurrencyList";
 
 const GET_CATEGORIES = gql`
   query {
@@ -38,21 +37,26 @@ class NavBar extends React.Component {
       isOpen: false,
     
     };
-   
+   this.setBool=this.setBool.bind(this);
+  }
+
+  setBool(val){
+    this.setState({ isOpen: !val
+    })
   }
 
   
 
-  
-
   render() {
-    console.log({state:this.state});
+   
     return (
       <>
         <Query query={GET_CATEGORIES}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error </div>;
+
+          
 
             return (
               <>
@@ -61,12 +65,15 @@ class NavBar extends React.Component {
                     <ul className="ListParent">
                       {data.categories.map((cat) => (
                         <li className="List">
-                          <Link
-                            className="Nav-Link"
+                          <NavLink 
+                            
                             to={cat.name === "all" ? "/" : `/${cat.name}`}
+                            className={({ isActive }) =>
+                            isActive ? 'active' : 'Nav-Link'
+                          }
                           >
                             {cat.name}
-                          </Link>
+                          </NavLink>
                         </li>
                       ))}
                     </ul>
@@ -79,7 +86,14 @@ class NavBar extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <div className="Cart" >
+
+
+
+
+                    <CurrencyList  isOpen={this.state.isOpen}  setBool={this.setBool}/>
+
+
+                    {/* <div className="Cart" >
                       <div className="Symbol">
                         <div className="Symbol">
                           <p className="DollarSign" onClick={()=>this.props.isOpenSwitcher()}>$</p>
@@ -102,92 +116,11 @@ class NavBar extends React.Component {
                           </div>
                         </div>
 
-                        <div
-                          className="NavCart"
-                          onClick={() => {
-                            this.setState({ isOpen: !this.state.isOpen });
-                            this.props.initialTotal();
-                          }}
-                        >
-                          <div className="">
-                            <img src={Cart} alt="cart" />
-                            <div className="Dot">
-                              <img src={Dot} alt="dot" />
-                              <img src={Dot} alt="dot" className="RDot" />
-                            </div>
-                          </div>
-                          <div className="ItemsNo">
-                            {this.props.carts.length}
-                          </div>
-                        </div>
+                        
                       </div>
 
-                      <div className="DivCurrencyList">
-                        <ul
-                          className={
-                          this.props.isOpenedSwitcher
-                              ? "CurrencyListShow"
-                              : "CurrencyList"
-                          }
-                        >
-                          <li className="BtnList">
-                            <button
-                              className="BtnC"
-                              onClick={() => {
-                                this.props.usd();
-                                this.props.isCloseSwitcher();
-                              }}
-                            >
-                              $ USD
-                            </button>
-                          </li>
-                          <li className="BtnList">
-                            <button
-                              className="BtnC"
-                              onClick={() => {
-                                this.props.gbp();
-                                this.props.isCloseSwitcher();
-                              }}
-                            >
-                              £ GBP
-                            </button>
-                          </li>
-                          <li className="BtnList">
-                            <button
-                              className="BtnC"
-                              onClick={() => {
-                                this.props.jpy();
-                                this.props.isCloseSwitcher();
-                              }}
-                            >
-                              ¥ JPY
-                            </button>
-                          </li>
-                          <li className="BtnList">
-                            <button
-                              className="BtnC"
-                              onClick={() => {
-                                this.props.rub();
-                                this.props.isCloseSwitcher();
-                              }}
-                            >
-                              ₽ RUB
-                            </button>
-                          </li>
-                          <li className="BtnList">
-                            <button
-                              className="BtnC"
-                              onClick={() => {
-                                this.props.aud();
-                                this.props.isCloseSwitcher();
-                              }}
-                            >
-                              A$ AUD
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                     
+                    </div> */}
                   </div>
                   {this.state.isOpen && (
                     <div className="Modal">
@@ -204,22 +137,6 @@ class NavBar extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // dispatching actions returned by action creators
-    usd: () => dispatch(usd()),
-    gbp: () => dispatch(gbp()),
-    aud: () => dispatch(aud()),
-    jpy: () => dispatch(jpy()),
-    rub: () => dispatch(rub()),
-    initialTotal: () => dispatch(initialTotal()),
-    isCloseSwitcher:()=>dispatch(isCloseSwitcher()),
-    isOpenSwitcher:()=>dispatch(isOpenSwitcher())
-  };
-};
-function mapStateToProps(state) {
-  const { carts,isOpenedSwitcher } = state;
-  return { carts: carts, isOpenedSwitcher:isOpenedSwitcher};
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+
+export default NavBar;

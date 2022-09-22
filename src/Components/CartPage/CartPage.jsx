@@ -6,6 +6,7 @@ import ProductDescriptionChild from "../ProductsDescriptionChild/ProductDescript
 import Rectangle from "../Image/Rectangle.png";
 import Slide from "../Image/slide.png";
 import Slide1 from "../Image/slide1.png";
+import { removeProduct } from "../../redux/action";
 
 class CartPage extends React.Component {
   constructor(props) {
@@ -155,9 +156,42 @@ this.setState((st) => {
   }
 
 
+  componentDidMount() {
+    this.setState((st, props) => {
+      return {
+        cartsItem: Array.from(props.carts, (x, i) => ({
+          ...x,
+          isClick: false,
+          total: x.prices[props.index].amount,count:0
+        })),
+        totalAmount: 0,
+        active: false,
+      };
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.carts !== this.props.carts) {
+      const totalVal = this.props.carts
+        .reduce((a, b) => a + b.prices[this.props.index].amount, 0)
+        .toFixed(2);
+      this.setState(() => {
+        return {
+          cartsItem: Array.from(this.props.carts, (x, i) => ({
+            ...x,
+            isClick: false,
+            total: x.prices[this.props.index].amount,count:0
+          })),
+          totalAmount: totalVal,
+          active: true,
+        };
+      });
+    }
+  }
+
   render() {
     const { index, initialTotal } = this.props;
-    const swatchItems = ["CDivG", "CDivC", "CDivB", "CDivBl", "CDivW"];
+    const swatchClass = ["CDivG", "CDivC", "CDivB", "CDivBl", "CDivW"];
     const currency = ["$", "£", "A$", "¥", "₽"];
     const { active, cartsItem, totalAmount } = this.state;
     const price = `${currency[index]}${totalAmount}`;
@@ -167,16 +201,17 @@ this.setState((st) => {
     const iPriceTax = ((21 * initialTotal) / 100).toFixed(2);
     const initialPriceTax = `${currency[index]}${iPriceTax}`;
     
+    console.log(this.props.carts,'cvb');
 
     return (
       <>
         <div className="CartPageWrap">
           <h2 className="CartPageTitle">Cart</h2>
-          <div className="Horizontal"></div>
+          
           {cartsItem?.map((cart) => (
             <>
               <div className="CartPageMainDiv">
-                <div>
+                <div className="AttributeCart">
                   <p className="CartPageSubTitle">
                     {this.getPrefixText(cart.name)}
                   </p>
@@ -193,7 +228,7 @@ this.setState((st) => {
                           <div key={att.id} className="CartAttributeDiv">
                             <p className="CartPageNameAtt">{att.name}</p>
                             <div className="CartAttItemwrapper">
-                              {swatchItems?.map((item) => (
+                              {swatchClass?.map((item) => (
                                 <div key={item} className={item}></div>
                               ))}
                             </div>
@@ -216,7 +251,11 @@ this.setState((st) => {
                     <div className="Quantity">{cart.qty}</div>
                     <div
                       className="ContBtn"
-                      onClick={() => this.handleDecrease(cart.id, index)}
+                      onClick={() => {
+                        cart.qty === 1
+                          ? this.props.removeProduct(cart.id)
+                          : this.handleDecrease(cart.id,index);
+                      }}
                     >
                       -
                     </div>
@@ -244,7 +283,7 @@ this.setState((st) => {
                   </div>
                 </div>
               </div>
-              <div className="Horizontal"></div>
+              
             </>
           ))}
 
@@ -274,9 +313,17 @@ this.setState((st) => {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // dispatching actions returned by action creators
+    removeProduct: (id) => dispatch(removeProduct(id)),
+  };
+};
+
 function mapStateToProps(state) {
   const { carts, index, initialTotal } = state;
   return { carts: carts, index: index, initialTotal: initialTotal };
 }
 
-export default withRouter(connect(mapStateToProps)(CartPage));
+export default withRouter(connect(mapStateToProps,mapDispatchToProps )(CartPage));

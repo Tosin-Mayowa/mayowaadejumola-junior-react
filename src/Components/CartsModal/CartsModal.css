@@ -23,9 +23,16 @@
     height: 100vh;
     z-index: 1000;
     padding: 20px;
-    background-color: #fff;
+   
 }
 
+.Cart-Bag{
+  background-color: #fff;
+  width: 400px;
+  padding: 20px;
+  margin-left: -120px;
+  margin-top: -20px;
+}
 
 
 

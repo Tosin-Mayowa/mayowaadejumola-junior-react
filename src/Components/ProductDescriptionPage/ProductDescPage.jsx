@@ -7,36 +7,31 @@ import { addToCart } from "../../redux/action";
 import parse from "html-react-parser";
 import "./ProductDescription.css";
 import ProductDescriptionChild from "../ProductsDescriptionChild/ProductDescriptionChild";
-const GET_PRODUCTS = gql`
-  query {
-    categories {
+const GET_PRODUCT = gql`
+  query GetProduct($id: String!) {
+    product(id: $id) {
+      id
       name
-      products {
-        id
+      inStock
+      gallery
+      description
+      category
+      attributes {
         name
-        inStock
-        gallery
-        description
-        category
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
+        type
+        items {
+          displayValue
+          value
         }
-        prices {
-          currency {
-            label
-            symbol
-          }
-          amount
-        }
-        brand
       }
+      prices {
+        currency {
+          label
+          symbol
+        }
+        amount
+      }
+      brand
     }
   }
 `;
@@ -51,11 +46,16 @@ class ProductDescPage extends React.Component {
     this.setImage = this.setImage.bind(this);
     this.formatText = this.formatText.bind(this);
     this.getPrefixText = this.getPrefixText.bind(this);
+   
   }
 
   setImage(val) {
     this.setState({ url: val });
   }
+
+
+  
+
 
   formatText(text) {
     const indexSlice = text.indexOf(" ");
@@ -75,22 +75,16 @@ class ProductDescPage extends React.Component {
   }
 
   render() {
-    const swatchItems = ["CDivGP", "CDivCP", "CDivBP", "CDivBlP", "CDivWP"];
+    const swatchClass = ["CDivGP", "CDivCP", "CDivBP", "CDivBlP", "CDivWP"];
     const { index } = this.props;
     return (
       <>
-        <Query query={GET_PRODUCTS}>
+        <Query query={GET_PRODUCT} variables={{ id: this.props.params.id }}>
           {({ loading, error, data }) => {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error </div>;
-            const allProducts = data?.categories?.find(
-              (cat) => cat.name === "all"
-            );
-            const product = allProducts.products.find(
-              (item) => item.id === this.props.params.id
-            );
-
-            console.log(product);
+            const { product } = data;
+            
 
             return (
               <>
@@ -103,7 +97,7 @@ class ProductDescPage extends React.Component {
                     ))}
                   </div>
                   <div className="SecondChild">
-                    <div>
+                    <div className="ImageDivSec">
                       <img
                         src={
                           this.state.url ? this.state.url : product.gallery[0]
@@ -118,40 +112,48 @@ class ProductDescPage extends React.Component {
                         {this.getPrefixText(product.name)}
                       </p>
                       <p className="ProductSubName">
-                        {this.formatText(product.name).length < 5
+                        {this.formatText(product?.name).length < 5
                           ? ""
-                          : this.formatText(product.name)}
+                          : this.formatText(product?.name)}
                       </p>{" "}
                       <div className="ProductDescAttMainDivWrap">
                         {product.attributes.map((att) => {
                           if (att.type === "swatch") {
                             return (
-                              <div key={att.id} className="ProductDescAttMainDiv">
+                              <div
+                                key={att.id}
+                                className="ProductDescAttMainDiv"
+                              >
                                 <p className="ProductAttributeName">
                                   {att.name}
                                 </p>
                                 <div className="AttItemwrapper">
-                                  {swatchItems.map((item) => (
+                                  {swatchClass.map((item) => (
                                     <div key={item} className={item}></div>
                                   ))}
                                 </div>
                               </div>
                             );
                           } else {
-                            return (
-                            <ProductDescriptionChild att={att}/>
-                            );
+                            return <ProductDescriptionChild att={att} />;
                           }
                         })}
                       </div>
                       <p className="PriceSecondChild">Price:</p>
                       <p className="PriceValue">{`${product.prices[index].currency.symbol}${product.prices[index].amount}`}</p>
                       <div className="ButtonAddDiv">
-                        <button className="ButtonAdd" onClick={() => this.props.addToCart(product)}>
-                          Add To Cart
-                        </button>
+                        {product.inStock ? (
+                          <button
+                            className="ButtonAdd"
+                            onClick={() => this.props.addToCart(product)}
+                          >
+                            Add To Cart
+                          </button>
+                        ) : (
+                          <button className="ButtonAdd">Add To Cart</button>
+                        )}
                       </div>
-                      <div>
+                      <div className="Description">
                         <div>{parse(product.description)}</div>
                       </div>
                     </div>

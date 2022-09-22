@@ -27,7 +27,7 @@ class TechProductsChild extends React.Component {
             <p>OUT OF STOCK</p>
           </div>
           <div className="ImageDiv">
-            {products.inStock === true ? (
+           
               <Link to={`/${products.category}/${products.id}`}>
                 <img
                   src={products.gallery[0]}
@@ -35,13 +35,7 @@ class TechProductsChild extends React.Component {
                   className="AllImage"
                 />
               </Link>
-            ) : (
-              <img
-                src={products.gallery[0]}
-                alt={products.name}
-                className="AllImage"
-              />
-            )}
+            
           </div>
           <h2
             className={

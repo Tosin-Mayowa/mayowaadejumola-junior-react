@@ -1,72 +1,71 @@
 import React from "react";
-import { gql } from 'apollo-boost';
-import { Query } from 'react-apollo'; 
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo";
 import ClothesProducts from "../ClothesProducts/ClothesProducts";
 import Loading from "../Loading/Loading";
 
-
 const GET_CLOTHESPRODUCTS = gql`
-
-query {
-  categories{
-    name
-    products{
-      id
+  query Getcategory($input: CategoryInput) {
+    category(input: $input) {
+      name
+      products {
+        id
         name
         inStock
         gallery
         description
         category
-       attributes{
-        id
-        name
-        type
-        items{
-          displayValue
-          value
+        attributes {
           id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
         }
-      }
-        prices{
-          currency{
+        prices {
+          currency {
             label
             symbol
           }
           amount
         }
         brand
+      }
     }
   }
-}
+`;
 
-`
+class ClothesProductListPage extends React.Component {
+  render() {
+    return (
+      <>
+        <Query
+          query={GET_CLOTHESPRODUCTS}
+          variables={{
+            input: {
+              title: "clothes",
+            },
+          }}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <Loading />;
+            if (error) return <div>Error </div>;
 
-class ClothesProductListPage extends React.Component{
+            const category = data?.category;
 
-
-
-    render(){
-        return(
-        <>
-           <Query query={GET_CLOTHESPRODUCTS}>
-            {({ loading, error, data }) => {
-              if (loading) return <Loading/>;
-              if (error) return <div>Error </div>;
-              const clothesProducts= data?.categories?.find(cat=>cat.name==='clothes');
-        
-             return    (
-                <>
-              <ClothesProducts clothesProducts={clothesProducts}/>
+            return (
+              <>
+                <ClothesProducts clothesProducts={category} />
               </>
-             );
-         
-              
-            }}
-          </Query>
-          </>
-          )
-          }
-
+            );
+          }}
+        </Query>
+      </>
+    );
+  }
 }
 
 export default ClothesProductListPage;

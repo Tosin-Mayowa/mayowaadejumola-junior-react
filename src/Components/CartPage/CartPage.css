@@ -29,7 +29,7 @@
 }
 
 .CartPageWrap {
-  width: 100%;
+ 
   height: 100vh;
 margin-top: 100px;
   padding: 20px;
@@ -39,7 +39,7 @@ margin-top: 100px;
 .CartPageTitle {
   width: 84px;
   height: 40px;
-
+margin-left: 100px;
   font-family: "Raleway";
   font-style: normal;
   font-weight: 700;
@@ -86,8 +86,8 @@ margin-top: 100px;
   margin: 10px auto;
   border: 1px solid #e5e5e5;
   position: absolute;
-  width: 90vw;
-  margin-left: 10px;
+  width: 100%;
+  margin: 0px 2px 0px 2px;
 }
 
 .SpanAll {
@@ -103,6 +103,7 @@ margin-top: 100px;
 
 .Total {
   margin-top: 32px;
+  margin-left: 100px;
 }
 .Tax {
   display: flex;
@@ -150,8 +151,9 @@ margin-top: 100px;
 
 .ImageCart {
   width: 200px;
-  height: 288px;
-  margin-right: 50px;
+  height: 298px;
+  margin-right: 40px;
+margin-bottom: 30px;
 }
 
 .Attribute {
@@ -160,8 +162,8 @@ margin-top: 100px;
 }
 
 .Quantity {
-  margin-top: 120px;
-  margin-bottom: 100px;
+  margin-top: 100px;
+  margin-bottom: 150px;
 }
 
 .ContBtns {
@@ -199,9 +201,18 @@ margin-top: 100px;
 }
 
 .CartPageMainDiv {
-  display: grid;
-  grid-template-columns: 80% 20%;
-  gap: 15px;
+ display: flex;
+justify-content: space-between;
+ 
+  width: 80%;
+  
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  margin-left: 100px;
+}
+
+.AttributeCart{
+  padding: 0px 0px 20px 0px;
 }
 
 .CDivG {
@@ -313,4 +324,8 @@ margin-top: 100px;
 
 .MainImageParent{
   position: relative;
+}
+
+.MainImageParent{
+  margin-bottom: 30px;
 }

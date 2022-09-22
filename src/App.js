@@ -20,13 +20,15 @@ class App extends React.Component{
       <NavBar/>
 
  <Routes>
-<Route path='/' element={<ProductListPage/>}/>
+<Route exact path='/' element={<ProductListPage/>}/>
 <Route path='/clothes' element={<ClothesProductListPage/>}/>
 <Route path='/tech' element={<TechProductsListPage/>}/>
 <Route path='/cartPage' element={<CartPage/>}/>
-<Route path='/tech/:id' element={<ProductDescPage/>}  />
 <Route path='/:id' element={<ProductDescPage/>}  />
 <Route path='/clothes/:id' element={<ProductDescPage/>}  />
+<Route path='/tech/:id' element={<ProductDescPage/>}  />
+
+
 </Routes> 
 
 </>

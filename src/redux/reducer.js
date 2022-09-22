@@ -60,15 +60,20 @@ export default function reducer(state = initialState, action) {
     return { ...state, initialTotal:state.carts.reduce((a, b) => a + b.prices[state.index].amount, 0).toFixed(2) };
   };
 
-  if (action.type === "CLOSE SWITCHER"){
-    return {...state, isOpenedSwitcher:false}
+  if (action.type === "TOGGLE SWITCHER"){
+    console.log('hello');
+    return {...state, isOpenedSwitcher:!state.isOpenedSwitcher}
   };
 
-  if (action.type === "Open SWITCHER"){
+  if (action.type === "CLOSE SWITCHER"){
     
-    return {...state, isOpenedSwitcher:true}
+    return {...state, isOpenedSwitcher:false}
   }
 
+  if (action.type ==="REMOVE"){
+  
+    return {...state, carts:state.carts.length===1?[]:[...state.carts.filter(cart=>cart.id!==action.payload)] }
+  }
 
   return state;
 }

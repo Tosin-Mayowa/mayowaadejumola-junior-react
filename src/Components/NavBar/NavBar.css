@@ -1,20 +1,18 @@
-
 /* .Nav-bar {
-position: fixed;
-top: 0;
-right: 0;
-left: 0;
-bottom: 0;
-z-index: 80;
+
+
 } */
 
 .Nav {
   display: flex;
   justify-content: space-around;
   align-content: center;
-  height: 80px;
+  height: 5%;
   width: 100%;
   padding: 10px;
+
+  padding-top: 28px;
+  padding-bottom: 28px;
 }
 
 .ListParent {
@@ -29,25 +27,14 @@ z-index: 80;
 }
 .List {
   text-decoration: none;
+  height: 60px;
 }
 
-.DollarSign {
-  width: 12px;
-  height: 29px;
-  margin-top: -5px;
-  /* --price-regular-font */
-
-  font-family: "Raleway";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 29px;
-  /* identical to box height, or 29px */
-
-  /* --c-black */
-
-  color: #1d1f22;
+.List:focus {
+  border-bottom: 2px solid #5ece7b;
 }
+
+
 
 .Symbol {
   display: flex;
@@ -55,35 +42,44 @@ z-index: 80;
 
 .Nav-Link {
   width: 65px;
-  height: 20px;
+  height: 80px;
   color: #1d1f22;
   font-family: "Raleway";
   font-style: normal;
   font-weight: 600;
   font-size: 16px;
   line-height: 19px;
-  /* identical to box height, or 19px */
+  border-radius: 2px solid black;
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
 }
 
-.Nav-Link:link {
-  color: #5ece7b;
-}
-
-.Nav-Link:visited {
-  color: #1d1f22;
-}
-
 .Nav-Link:hover {
   color: #5ece7b;
+}
+
+
+
+.List:hover {
+  color: #5ece7b;
   border-bottom: 2px solid #5ece7b;
 }
 
-.Nav-Link:active {
+.active {
   color: #5ece7b;
-  border-bottom: 2px solid #5ece7b;
+
+  width: 65px;
+
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .DivCurrencyList {
@@ -106,52 +102,13 @@ z-index: 80;
   margin-left: 3px;
 }
 
-.Dot {
-  margin-top: -10px;
-  margin-left: 6px;
-}
-
-.RDot {
-  margin-left: 4px;
-}
-
 .CurrencyList {
   display: none;
 }
 
 .CurrencyListShow {
- 
   margin-left: -30px;
   z-index: 3000;
-}
-
-.BtnC{
-  width: 114px;
-  height: 45px;
-  font-family: "Raleway";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 160%;
-  text-align: center;
-  color: #1d1f22;
-  border: none;
-  background-color: white;
-  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
-  transition-property: all;
-  transition-duration: 0.5s;
-  transition-delay: 0.1s;
-  transition-timing-function: ease-in;
-}
-
-
-
-.BtnC:hover {
-  background-color: #eeeeee;
-}
-
-.BtnList {
-  list-style-type: none;
 }
 
 .Cart {
@@ -160,31 +117,15 @@ z-index: 80;
   cursor: pointer;
 }
 
-.NavCart {
-  margin-left: 10px;
-  position: relative;
-}
-
-.ItemsNo{
-  width: 16px;
-  height: 16px;
-  border: 1px solid #1d1f22;
-  border-radius: 50%;
-  position: absolute;
-  background-color: #1d1f22;
-  color: #fff;
-  text-align: center;
-  right: -12px;
-  top: -7px;
-  
-}
-
-.Modal{
+.Modal {
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(rgba(200,200,200,0.4),rgba(200,200,200,0.4));
+  background: linear-gradient(
+    rgba(200, 200, 200, 0.4),
+    rgba(200, 200, 200, 0.4)
+  );
   display: flex;
   justify-content: flex-end;
   z-index: 1000;
   position: fixed;
-}   
+}

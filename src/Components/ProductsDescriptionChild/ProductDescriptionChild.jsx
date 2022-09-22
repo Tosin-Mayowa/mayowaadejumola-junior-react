@@ -10,9 +10,9 @@ class ProductDescriptionChild extends React.Component {
     this.setClick = this.setClick.bind(this);
   }
 
-  setClick(id){
+  setClick(val){
 const newAtt=this.state.attributes.map(item=>{
-    if(item.id===id){
+    if(item.value===val){
         return {...item,isClicked:!item.isClicked};
     }else{
         return item;
@@ -25,7 +25,7 @@ this.setState({attributes:newAtt})
 
   render() {
    const {att}= this.props;
-   console.log(this.state.attributes);
+  
     
     return (
       <>
@@ -34,9 +34,9 @@ this.setState({attributes:newAtt})
                                 <div className="CartAttItemwrapper">
                                   {this.state.attributes.map((item) => (
                                     <div
-                                      key={item.id}
+                                      key={item.value}
                                      className={item.isClicked?'ProductAttributeBoxOn':'ProductAttributeBoxOff'} 
-                                     onClick={()=>this.setClick(item.id)}
+                                     onClick={()=>this.setClick(item.value)}
                                     >
                                       {item.value}
                                     </div>

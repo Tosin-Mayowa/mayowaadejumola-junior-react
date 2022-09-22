@@ -22,21 +22,15 @@ render(){
   >
     <p>OUT OF STOCK</p>
     </div>
-  <div className='ImageDiv'>{products.inStock === true ? (
-              <Link to={`/${products.category}/${products.id}`}>
+  <div className='ImageDiv'>
+              <Link to={ `/${products.id}`}>
                 <img
                   src={products.gallery[0]}
                   alt={products.name}
                   className="AllImage"
                 />
               </Link>
-            ) : (
-              <img
-                src={products.gallery[0]}
-                alt={products.name}
-                className="AllImage"
-              />
-            )}</div>
+            </div>
 <h2 className={products.inStock===true?'AllText':'AllTextOutOfStock'}>{products.name}</h2>
 <h3 className={products.inStock===true?'AllPriceTag':'AllPriceTagOutOfStock'}>{`${products.prices[index].currency.symbol}${products.prices[index].amount}`}</h3>
 <AddCartBtn products={products} />

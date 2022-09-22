@@ -54,7 +54,7 @@ class TechProducts extends React.Component {
   render() {
     const { techProducts } = this.state;
     const { name } = this.props.techProducts;
-    console.log(this.props.isCloseSwitcher());
+   
 
     return (
       <>

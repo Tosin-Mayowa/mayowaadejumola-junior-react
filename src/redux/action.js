@@ -6,4 +6,5 @@ export const jpy= ()=>({ type: 'JPY',payload:3});
 export const rub= ()=>({ type: 'RUB',payload:4});
 export const initialTotal= ()=>({ type: 'INITIAL TOTAL'});
 export const isCloseSwitcher=()=>({ type: 'CLOSE SWITCHER'});
-export const isOpenSwitcher=()=>({ type: 'Open SWITCHER'});
+export const isToggle= ()=>({ type: 'TOGGLE SWITCHER'});
+export const removeProduct=(id)=>({ type:'REMOVE', payload:id});

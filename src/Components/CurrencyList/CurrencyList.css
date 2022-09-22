@@ -1,0 +1,101 @@
+.dropbtn {
+  background-color: #fff;
+  width: 60px;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 29px;
+  color: #1d1f22;
+  
+  border: none;
+  cursor: pointer;
+ 
+}
+
+
+.dropdown-content{
+  display: flex;
+  flex-direction: column;
+
+  position: absolute;
+   min-width: 160px;
+}
+
+
+
+
+
+.ArrowIcon{
+    margin-left:10px
+}
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+
+
+
+  .BtnC{
+    width: 114px;
+    height: 45px;
+    font-family: "Raleway";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    text-align: center;
+    color: #1d1f22;
+    border: none;
+    background-color: white;
+    box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+    transition-property: all;
+    transition-duration: 0.5s;
+    transition-delay: 0.1s;
+    transition-timing-function: ease-in;
+  }
+  
+  
+  
+  .BtnC:hover {
+    background-color: #eeeeee;
+  }
+
+  .NavCart {
+    margin-left: 10px;
+    position: relative;
+    padding: 4px;
+    
+  }
+
+
+.ItemsNo{
+  width: 16px;
+  height: 16px;
+  border: 1px solid #1d1f22;
+  border-radius: 50%;
+  position: absolute;
+  background-color: #1d1f22;
+  color: #fff;
+  text-align: center;
+  right: -8px;
+  top: -5px;
+  
+}
+
+.Dot {
+  margin-top: -10px;
+  margin-left: 6px;
+}
+
+.RDot {
+  margin-left: 4px;
+}
+
+.Wrapper{
+  display: flex;
+  cursor: pointer;
+}
