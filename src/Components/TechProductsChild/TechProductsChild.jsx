@@ -13,33 +13,33 @@ class TechProductsChild extends React.Component {
           key={products.id}
           className={
             products.inStock === true && products.attributes.length !== 0
-              ? "AllinnerDiv"
-              : "AllinnerDivOutStock"
+              ? "TechinnerDiv"
+              : "TechinnerDivOutStock"
           }
           onMouseEnter={() => handleMouseEnter(products.idx)}
           onMouseLeave={() => handleMouseLeave(products.idx)}
         >
           <div
             className={
-              products.inStock === true ? "HideOutOfStock" : "ShowOutOfStock"
+              products.inStock === true ? "TechHideOutOfStock" : "TechShowOutOfStock"
             }
           >
             <p>OUT OF STOCK</p>
           </div>
-          <div className="ImageDiv">
+          <div className="TechImageDiv">
            
               <Link to={`/${products.category}/${products.id}`}>
                 <img
                   src={products.gallery[0]}
                   alt={products.name}
-                  className="AllImage"
+                  className="TechImage"
                 />
               </Link>
             
           </div>
           <h2
             className={
-              products.inStock === true ? "AllText" : "AllTextOutOfStock"
+              products.inStock === true ? "TechText" : "TechTextOutOfStock"
             }
           >
             {" "}
@@ -48,8 +48,8 @@ class TechProductsChild extends React.Component {
           <h3
             className={
               products.inStock === true
-                ? "AllPriceTag"
-                : "AllPriceTagOutOfStock"
+                ? "TechPriceTag"
+                : "TechPriceTagOutOfStock"
             }
           >{`${products.prices[index].currency.symbol}${products.prices[index].amount}`}</h3>
           <AddCartBtn products={products} />

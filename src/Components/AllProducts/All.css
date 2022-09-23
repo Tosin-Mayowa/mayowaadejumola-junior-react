@@ -1,32 +1,18 @@
-.Title{
- margin-left: 101px;
- /* margin-top: 160px; */
-width: 299px;
-height: 68px;
-text-transform: capitalize;
-
-
-/* Heading / Desktop / H2 */
-
-font-family: 'Raleway';
-font-style: normal;
-font-weight: 400;
-font-size: 42px;
-line-height: 67px;
-/* identical to box height, or 67px */
-
-display: flex;
-align-items: center;
-
-/* --c-text */
-
-color: #1D1F22;
-
+.Title {
+  text-transform: capitalize;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 67px;
+  color: #1d1f22;
+  margin-left: 110px;
 }
 
-.AllParentDiv{
-    margin-top: 60px;
+.AllParentDiv {
+  margin-top: 60px;
 }
-.AllProductsWrapper{
-    margin-top: 45px;
+.AllProductsWrapper {
+  margin-top: 45px;
+  margin-left: 100px;
 }

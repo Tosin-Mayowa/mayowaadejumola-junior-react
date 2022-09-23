@@ -1,11 +1,11 @@
 .ParentDiv {
   display: grid;
   grid-template-columns: 14% 86%;
+  margin-left: 55px;
 }
 
 .FirstChild{
   margin-left: 48%;
-  
   margin-top: 100px;
   width:176px;
   

@@ -1,11 +1,11 @@
-.AllParentDiv{
+.TechParentDiv{
     display:grid;
     grid-template-columns: repeat(3,1fr);
     gap: 75px;
     margin-left: 100px;
 }
 
-.AllinnerDiv{
+.TechinnerDiv{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -23,12 +23,12 @@
 
 }
 
-.AllinnerDiv:hover {
+.TechinnerDiv:hover {
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     transform: scale(1.1);
     
 }
-.AllinnerDivOutStock{
+.TechinnerDivOutStock{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -49,46 +49,46 @@
 
 
 
-.AllinnerDivOutStock:hover {
+.TechinnerDivOutStock:hover {
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     transform: scale(1.1);
     
 }
 
 
-.AllImage{
+.TechImage{
     width: 356px;
     height: 338px;
    
 }
 
-.ImageDiv{
+.TechImageDiv{
     width: 356px;
     height: 338px;
     background-color: #8D8F9A;
     position: relative;
 }
 
-.AllCartsDiv{
+.TechCartsDiv{
 display:none;
 
 }
 
-.AllCartsDivHover{
+.TechCartsDivHover{
     position:absolute;
     top:340px;
     right: 30px;
    
 } 
 
-.AllCartsDivOutOfStock{
+.TechCartsDivOutOfStock{
    display:none;
   
     }
 
 
 
-.AllText{
+.TechText{
 width: 354px;
 height: 29px;
 font-family: 'Raleway';
@@ -99,7 +99,7 @@ line-height: 29px;
 color: #1D1F22;
 }
 
-.AllPriceTag{
+.TechPriceTag{
 width: 58px;
 height: 29px;
 font-family: 'Raleway';
@@ -114,7 +114,7 @@ margin-top: -15px;
 }
 
 
-.AllTextOutOfStock{
+.TechTextOutOfStock{
     width: 354px;
     height: 29px;
     font-style: normal;
@@ -124,7 +124,7 @@ margin-top: -15px;
     color: #8D8F9A;
     }
     
-    .AllPriceTagOutOfStock{
+    .TechPriceTagOutOfStock{
     width: 58px;
     height: 29px;
     font-family: 'Raleway';
@@ -139,11 +139,11 @@ margin-top: -15px;
     }
     
 
-.HideOutOfStock{
+.TechHideOutOfStock{
 display:none;
 }
 
-.ShowOutOfStock{
+.TechShowOutOfStock{
    display:block; 
    position: absolute;
    width:173px;
@@ -162,12 +162,12 @@ left:90px;
 
 }
 
-.CartImage{
+.TechCartImage{
 width:52px;
 height: 52px;
 
 }
-.CartDiv{
+.TechCartDiv{
     width:52px;
 height: 52px;
 margin-top: -40px;
@@ -176,11 +176,11 @@ margin-left: 12px;
 
 
 
-.Dot{
+.TechDot{
     margin-top: -11px;
     margin-left: 6px;
 }
 
-.RDot{
+.TechRDot{
     margin-left: 4px;
 }

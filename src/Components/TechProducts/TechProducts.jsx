@@ -59,8 +59,8 @@ class TechProducts extends React.Component {
     return (
       <>
       <div className="TechWrapper" onClick={()=>this.props.isCloseSwitcher()}>
-        <h2 className="Title">{name}</h2>
-        <div className="AllParentDiv">
+        <h2 className="TechTitle">{name}</h2>
+        <div className="TechParentDiv">
           {techProducts?.map((products) => (
             <TechProductsChild
               key={products.id}

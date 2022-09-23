@@ -1,30 +1,24 @@
-.Title{
-    margin-left: 101px;
-    /* margin-top: 160px; */
-   width: 299px;
-   height: 68px;
-   text-transform: capitalize;
-  
-   
-   /* Heading / Desktop / H2 */
-   
-   font-family: 'Raleway';
-   font-style: normal;
-   font-weight: 400;
-   font-size: 42px;
-   line-height: 67px;
-   /* identical to box height, or 67px */
-   
-   display: flex;
-   align-items: center;
-   
-   /* --c-text */
-   
-   color: #1D1F22;
-   
-   }
-
-   .AllParentDiv{
-    margin-top: 50px;
+.ClothesWrapper{
+    margin-top: 45px;
+    margin-left: 110px;
 }
 
+
+.ClothesTitle {
+    margin-left: 110px;
+  width: 299px;
+  height: 68px;
+  text-transform: capitalize;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 42px;
+  line-height: 67px;
+  display: flex;
+  align-items: center;
+  color: #1d1f22;
+}
+
+.ClothesParentDiv {
+  margin-top: 50px;
+}

@@ -1,11 +1,11 @@
-.AllParentDiv{
+.ClothesParentDiv{
     display:grid;
     grid-template-columns: repeat(3,1fr);
     gap: 75px;
     margin-left: 100px;
 }
 
-.AllinnerDiv{
+.ClothesinnerDiv{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -23,13 +23,13 @@
 
 }
 
-.AllinnerDiv:hover {
+.ClothesinnerDiv:hover {
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     transform: scale(1.1);
     
 }
 
-.AllinnerDivOutStock{
+.ClothesinnerDivOutStock{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -50,27 +50,27 @@
 
 
 
-.AllinnerDivOutStock:hover {
+.ClothesinnerDivOutStock:hover {
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
     transform: scale(1.1);
     
 }
 
 
-.AllImage{
+.ClothesImage{
     width: 356px;
     height: 338px;
     
 }
 
-.ImageDiv{
+.ClothesImageDiv{
     width: 356px;
     height: 338px;
     background-color: #8D8F9A;
     position: relative;
 }
 
-.AllCartsDiv{
+.ClothesCartsDiv{
 display:none;
 
 }
@@ -78,7 +78,7 @@ display:none;
 
 
 
-.AllText{
+.ClothesText{
 width: 354px;
 height: 29px;
 font-family: 'Raleway';
@@ -89,7 +89,7 @@ line-height: 29px;
 color: #1D1F22;
 }
 
-.AllPriceTag{
+.ClothesPriceTag{
 width: 58px;
 height: 29px;
 font-family: 'Raleway';
@@ -104,7 +104,7 @@ margin-top: -15px;
 }
 
 
-.AllTextOutOfStock{
+.ClothesTextOutOfStock{
     width: 354px;
     height: 29px;
     font-style: normal;
@@ -114,7 +114,7 @@ margin-top: -15px;
     color: #8D8F9A;
     }
     
-    .AllPriceTagOutOfStock{
+    .ClothesPriceTagOutOfStock{
     width: 58px;
     height: 29px;
     font-family: 'Raleway';
@@ -129,11 +129,11 @@ margin-top: -15px;
     }
     
 
-.HideOutOfStock{
+.ClothesHideOutOfStock{
 display:none;
 }
 
-.ShowOutOfStock{
+.ClothesShowOutOfStock{
    display:block; 
    position: absolute;
    width:173px;
@@ -148,11 +148,9 @@ color: #8D8F9A;
 z-index: 5;
 top:160px;
 left:90px;
-
-
 }
 
-.CartImage{
+.ClothesCartImage{
 width:52px;
 height: 52px;
 
