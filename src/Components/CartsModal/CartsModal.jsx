@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./CartsModal.css";
 import { withRouter } from "../../withRouter";
 import CartModalChild from "../CartModalChild/CartModalChild";
-import { addFromModal, addToCartWithSelectedAtt, removeProduct } from "../../redux/action";
+import { addFromModal, addToCartWithSelectedAtt, removeFromModal, removeProduct } from "../../redux/action";
 class CartsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -137,7 +137,7 @@ class CartsModal extends React.Component {
     }
   }
   render() {
-    const { index, initialTotal, removeProduct } = this.props;
+    const { index, initialTotal, removeFromModal } = this.props;
     const swatchClass = ["DivG", "DivC", "DivB", "DivBl", "DivW"];
     const currency = ["$", "£", "A$", "¥", "₽"];
     const { active, cartsItem, totalAmount } = this.state;
@@ -187,12 +187,12 @@ console.log(newCarts,'set');
                     {cart.attributes.map((att) => {
                       if (att.type === "swatch") {
                         return (
-                          <div key={att.id} className="ModalAttMainDiv">
-                            <p>{att.name}</p>
+                          <div key={att.name} className="ModalAttMainDiv">
+                            <p>{att.value}</p>
                             <div className="ModalAttItemwrapper">
-                              {swatchClass.map((item) => (
-                                <div key={item} className={item}></div>
-                              ))}
+                              
+                                <div  className={att.name}></div>
+                             
                             </div>
                           </div>
                         );
@@ -214,8 +214,9 @@ console.log(newCarts,'set');
                     <div
                       className="ModalBtnSy"
                       onClick={() => {
+                        console.log('in moda',cart.qty);
                         cart.qty === 1
-                          ? removeProduct(cart.id)
+                          ? removeFromModal(cart.id)
                           : this.handleDecrease(cart.id);
                       }}
                     >
@@ -268,8 +269,8 @@ const mapDispatchToProps = (dispatch) => {
     // dispatching actions returned by action creators
     removeProduct: (id) => dispatch(removeProduct(id)),
     addToCartWithSelectedAtt: (item) => dispatch(addToCartWithSelectedAtt(item)),
-    addFromModal: (item) => dispatch(addFromModal(item))
-    
+    addFromModal: (item) => dispatch(addFromModal(item)),
+    removeFromModal:(id)=>dispatch(removeFromModal(id))
   };
 };
 

@@ -64,15 +64,7 @@
   width: 497px;
 }
 
-.ProductAttributeName {
-  height: 18px;
-  font-family: "Roboto Condensed";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 18px;
-  color: #1d1f22;
-}
+
 
 .ProductAttributeBoxOn {
   width: 63px;
@@ -82,10 +74,7 @@
   border: 1px solid #1d1f22;
 }
 
-.ProductDescAttMainDiv {
-  display: flex;
-  flex-direction: column;
-}
+
 .CDivGP {
   background-color: #44ff03;
   text-align: center;
@@ -239,4 +228,8 @@
   font-size: 16px;
   line-height: 26px;
   color: #1d1f22;
+}
+
+.ProductDescItemwrapper{
+  display: flex;
 }

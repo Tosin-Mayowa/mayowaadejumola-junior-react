@@ -28,9 +28,9 @@ class CartPage extends React.Component {
     this.increaseSlideCount=this.increaseSlideCount.bind(this);
   }
 
-  handleIncrease(id, ind) {
+  handleIncrease(dispVal, ind) {
     const newItems = this.state.cartsItem.map((item) => {
-      if (id === item.id) {
+      if (item.attributes[0].value===dispVal) {
         return {
           ...item,
           isClick: true,
@@ -59,9 +59,10 @@ class CartPage extends React.Component {
     });
   }
 
-  handleDecrease(id) {
+  handleDecrease(dispVal) {
+    console.log(dispVal,'disp');
     const newItems = this.state.cartsItem.map((item) => {
-      if (id === item.id) {
+      if (item.attributes[0].value===dispVal) {
         return {
           ...item,
           isClick: true,
@@ -112,9 +113,9 @@ class CartPage extends React.Component {
     return newText;
   }
   
-  decreaseSlideCount(value,id){
+  decreaseSlideCount(value,dispVal){
 const newItems= this?.state?.cartsItem?.map(item=>{
-  if(item.id===id){
+  if(item.attributes[0].value===dispVal){
     return {...item,count:item.count!==0?item.count-1:0}
   }else{
     return item
@@ -132,10 +133,10 @@ this.setState((st) => {
 });
   }
 
-  increaseSlideCount(value,id){
+  increaseSlideCount(value,dispVal){
 
     const newItems= this?.state?.cartsItem?.map(item=>{
-      if(item.id===id){
+      if(item.attributes[0].value===dispVal){
         return {...item,count:item.count===0 && value !==0?item.count+1:value}
       }else{
         return item
@@ -171,7 +172,7 @@ this.setState((st) => {
 
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.pageCart !== this.props.pageCart) {
+    if (prevProps.pageCart !== this.props.pageCart || prevProps.carts !== this.props.carts) {
       const totalVal = this.props.pageCart.reduce((a, b) => a + b.prices[this.props.index].amount, 0).toFixed(2);
      
       this.setState(() => {
@@ -199,7 +200,7 @@ this.setState((st) => {
     const iPriceTax = ((21 * initialTotal) / 100).toFixed(2);
     const initialPriceTax = `${currency[index]}${iPriceTax}`;
 
-    console.log({cartpage:carts});
+    console.log({cartpage:cartsItem});
 
     
     
@@ -241,7 +242,7 @@ for swatch
                   <div className="Cart-Control">
                     <div
                       className="ContBtns"
-                      onClick={() => this.handleIncrease(cart.id, index)}
+                      onClick={() => this.handleIncrease(cart?.attributes[0]?.value, index)}
                     >
                       +
                     </div>
@@ -249,9 +250,10 @@ for swatch
                     <div
                       className="ContBtn"
                       onClick={() => {
+                        console.log(cart?.attributes[0]?.value,'att.val');
                         cart.qty === 1
-                          ? this.props.removeProduct(cart.id)
-                          : this.handleDecrease(cart.id,index);
+                          ? this.props.removeProduct(cart.attributes[0].value)
+                          : this.handleDecrease(cart?.attributes[0]?.value);
                       }}
                     >
                       -
@@ -266,11 +268,11 @@ for swatch
                     {cart.gallery.length>1?<div className="VectorParent">
                       <div className="Vector">
                         <img src={Rectangle} alt="" />
-                        <div className="VectorChild" onClick={()=>this.decreaseSlideCount(cart.gallery.length-1,cart.id)}>
+                        <div className="VectorChild" onClick={()=>this.decreaseSlideCount(cart.gallery.length-1,cart?.attributes[0]?.value)}>
                           <img src={Slide} alt="" />
                         </div>
                       </div>
-                      <div className="Vector2" onClick={()=>this.increaseSlideCount(cart.gallery.length-1,cart.id)}>
+                      <div className="Vector2" onClick={()=>this.increaseSlideCount(cart.gallery.length-1,cart?.attributes[0]?.value)}>
                         <img src={Rectangle} alt="" />
                         <div className="VectorChild">
                           <img src={Slide1} alt="" />

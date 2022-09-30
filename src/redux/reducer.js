@@ -78,12 +78,14 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type === "REMOVE") {
+    console.log(state.pageCart.length,'pgcart');
+    console.log(state.carts,'carts');
     return {
-      ...state,
-      carts:
-        state.carts.length === 1
+      ...state,carts:[],
+      pageCart:
+        state.pageCart.length === 1
           ? []
-          : [...state.carts.filter((cart) => cart.id !== action.payload)],
+          : [...state.pageCart.filter((cart) => cart.attributes[0].value !== action.payload)],
     };
   }
 
@@ -92,8 +94,7 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type === "WITH SELECTED ATTRIBUTES") {
-    console.log(action.payload, "payy");
-    console.log(state.carts, "che carts");
+  
 
     let newState =
       state.carts.length === 0
@@ -151,18 +152,7 @@ export default function reducer(state = initialState, action) {
                     return ar.push(item);
                   } else {
                     return [...state.pageCart, ...action.payload];
-                    //  const newVal =
-                    //    state.pageCart.length >= 1
-                    //      ? [
-                    //          ...action.payload.filter(
-                    //            (pay) =>
-                    //              pay.attributes[0].value !==
-                    //              item.attributes[0].value
-                    //          ),
-                    //          item,
-                    //        ]
-                    //      : [...state.pageCart, ...action.payload];
-                    //  return newVal;
+                    
                   }
                 } else {
                   const newVal =
@@ -188,8 +178,17 @@ export default function reducer(state = initialState, action) {
       ...newState,
       pageCart: newState.pageCart?.map((item) => ({ ...item, qty: 1 })),
     };
+
+   
+  
+
     return realState;
   }
+
+  if (action.type ==="REMOVE FROM MODAL"){
+    console.log('am call');
+        return {...state, carts:state.carts.length===1?[]:[...state.carts.filter(cart=>cart.id!==action.payload)] }
+      }
 
   return state;
 }

@@ -1,0 +1,120 @@
+.ProductDescAttMainDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ProductAttributeName {
+    height: 18px;
+    font-family: "Roboto Condensed";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 18px;
+    color: #1d1f22;
+  }
+
+  .CDivGP {
+    background-color: #44ff03;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .CDivCP {
+    background-color: #03fff7;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .CDivBP {
+    background-color: #030bff;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .CDivBlP {
+    background-color: #000;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+  
+  .CDivWP {
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+
+  .Picked {
+    background-color: #000;
+    text-align: center;
+    border: 1px solid #000;
+    width: 32px;
+    height: 32px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+
+
+  .ProductDescItemwrapper{
+    display: flex;
+  }

@@ -7,6 +7,7 @@ import { addToCart, addToCartWithSelectedAtt } from "../../redux/action";
 import parse from "html-react-parser";
 import "./ProductDescription.css";
 import ProductDescriptionChild from "../ProductsDescriptionChild/ProductDescriptionChild";
+import ProductSwatch from "../Swatch/ProductSwatch";
 const GET_PRODUCT = gql`
   query GetProduct($id: String!) {
     product(id: $id) {
@@ -42,7 +43,8 @@ class ProductDescPage extends React.Component {
     this.state = {
       url: "",
       isDisabled:true,
-      attributes:[]
+      attributes:[],
+      swatchAttributes:[]
     };
 
     this.setImage = this.setImage.bind(this);
@@ -50,12 +52,18 @@ class ProductDescPage extends React.Component {
     this.getPrefixText = this.getPrefixText.bind(this);
    this.setDisabled=this.setDisabled.bind(this);
    this.getNewAtt=this.getNewAtt.bind(this);
+   this.getNewSwatchAtt=this.getNewSwatchAtt.bind(this)
   }
 
   setImage(val) {
     this.setState({ url: val });
   }
 
+  getNewSwatchAtt(arr){
+    console.log(arr,'sw');
+    const attributeSet=arr.filter(att=>att.clicked===true);
+    this.setState({  swatchAttributes: attributeSet});
+  }
 
   getNewAtt(arr){
     console.log(arr,'arr');
@@ -100,9 +108,10 @@ class ProductDescPage extends React.Component {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error </div>;
             const { product } = data;
-           
+          
             const newProduct={...product,attributes:this.state.attributes}
-     
+         const   newProductSwatch={...product,attributes:[...this.state.attributes,...this.state.swatchAttributes]}
+         console.log(newProductSwatch,'swatcnew');
             return (
               <>
                 <div className="ParentDiv">
@@ -137,19 +146,7 @@ class ProductDescPage extends React.Component {
                         {product.attributes.map((att) => {
                           if (att.type === "swatch") {
                             return (
-                              <div
-                                key={att.id}
-                                className="ProductDescAttMainDiv"
-                              >
-                                <p className="ProductAttributeName">
-                                  {att.name}
-                                </p>
-                                <div className="AttItemwrapper">
-                                  {swatchClass.map((item) => (
-                                    <div key={item} className={item}></div>
-                                  ))}
-                                </div>
-                              </div>
+                             <ProductSwatch att={att} getNewSwatchAtt={this.getNewSwatchAtt} swatchClass={swatchClass}/>
                             );
                           } else {
                             return <ProductDescriptionChild att={att} getNewAtt={this.getNewAtt} setDisabled={this.setDisabled} />;
@@ -164,7 +161,7 @@ class ProductDescPage extends React.Component {
                             className="ButtonAdd"
                             onClick={() => {
 console.log('working');
-                              this.props.addToCartWithSelectedAtt( newProduct);
+                              this.props.addToCartWithSelectedAtt(this.state.swatchAttributes.length===0 ?newProduct:newProductSwatch);
                             }}
                             disabled={this.state.isDisabled}
                           >
