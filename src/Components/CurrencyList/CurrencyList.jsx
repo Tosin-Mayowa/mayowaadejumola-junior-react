@@ -12,6 +12,7 @@ import {
   initialTotal,
   isToggle,
   isCloseSwitcher,
+  setOverflow,
 } from "../../redux/action";
 import ArrowUpIcon from "../Image/ArrowUp.png";
 import ArrowDownIcon from "../Image/ArrowDown.png";
@@ -82,6 +83,7 @@ class CurrencyList extends React.Component {
                     onClick={() => {
                       setBool(isOpen);
                       this.props.initialTotal();
+                      this.props.setOverflow();
                     }}
                   >
                     <div className="">
@@ -114,6 +116,7 @@ const mapDispatchToProps = (dispatch) => {
     initialTotal: () => dispatch(initialTotal()),
     isToggle: () => dispatch(isToggle()),
     isCloseSwitcher: () => dispatch(isCloseSwitcher()),
+    setOverflow: () => dispatch(setOverflow()),
   };
 };
 function mapStateToProps(state) {

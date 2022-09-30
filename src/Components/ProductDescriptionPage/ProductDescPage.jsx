@@ -3,7 +3,7 @@ import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import withParams from "../../withParams";
 import { connect } from "react-redux";
-import { addToCart } from "../../redux/action";
+import { addToCart, addToCartWithSelectedAtt } from "../../redux/action";
 import parse from "html-react-parser";
 import "./ProductDescription.css";
 import ProductDescriptionChild from "../ProductsDescriptionChild/ProductDescriptionChild";
@@ -41,12 +41,15 @@ class ProductDescPage extends React.Component {
     super(props);
     this.state = {
       url: "",
+      isDisabled:true,
+      attributes:[]
     };
 
     this.setImage = this.setImage.bind(this);
     this.formatText = this.formatText.bind(this);
     this.getPrefixText = this.getPrefixText.bind(this);
-   
+   this.setDisabled=this.setDisabled.bind(this);
+   this.getNewAtt=this.getNewAtt.bind(this);
   }
 
   setImage(val) {
@@ -54,7 +57,11 @@ class ProductDescPage extends React.Component {
   }
 
 
-  
+  getNewAtt(arr){
+    console.log(arr,'arr');
+    const attributeSet=arr.filter(att=>att.clicked===true);
+    this.setState({  attributes: attributeSet});
+  }
 
 
   formatText(text) {
@@ -74,9 +81,18 @@ class ProductDescPage extends React.Component {
     return newText;
   }
 
+  setDisabled(val){
+    
+    this.setState({ isDisabled: !val });
+  }
+
+
+
   render() {
     const swatchClass = ["CDivGP", "CDivCP", "CDivBP", "CDivBlP", "CDivWP"];
     const { index } = this.props;
+    
+   
     return (
       <>
         <Query query={GET_PRODUCT} variables={{ id: this.props.params.id }}>
@@ -84,8 +100,9 @@ class ProductDescPage extends React.Component {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error </div>;
             const { product } = data;
-            
-
+           
+            const newProduct={...product,attributes:this.state.attributes}
+     
             return (
               <>
                 <div className="ParentDiv">
@@ -135,7 +152,7 @@ class ProductDescPage extends React.Component {
                               </div>
                             );
                           } else {
-                            return <ProductDescriptionChild att={att} />;
+                            return <ProductDescriptionChild att={att} getNewAtt={this.getNewAtt} setDisabled={this.setDisabled} />;
                           }
                         })}
                       </div>
@@ -145,12 +162,16 @@ class ProductDescPage extends React.Component {
                         {product.inStock ? (
                           <button
                             className="ButtonAdd"
-                            onClick={() => this.props.addToCart(product)}
+                            onClick={() => {
+console.log('working');
+                              this.props.addToCartWithSelectedAtt( newProduct);
+                            }}
+                            disabled={this.state.isDisabled}
                           >
                             Add To Cart
                           </button>
                         ) : (
-                          <button className="ButtonAdd">Add To Cart</button>
+                          <button className="ButtonAdd" >Add To Cart</button>
                         )}
                       </div>
                       <div className="Description">
@@ -176,6 +197,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (cart) => dispatch(addToCart(cart)),
+    addToCartWithSelectedAtt: (item) => dispatch(addToCartWithSelectedAtt(item))
   };
 };
 

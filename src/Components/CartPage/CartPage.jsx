@@ -1,25 +1,23 @@
 import React from "react";
 import { connect } from "react-redux";
+import { removeProduct } from "../../redux/action";
 import "./CartPage.css";
-import { withRouter } from "../../withRouter";
-import ProductDescriptionChild from "../ProductsDescriptionChild/ProductDescriptionChild";
 import Rectangle from "../Image/Rectangle.png";
 import Slide from "../Image/slide.png";
 import Slide1 from "../Image/slide1.png";
-import { removeProduct } from "../../redux/action";
-
+import { withRouter } from "../../withRouter";
 class CartPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cartsItem: Array.from(this.props.carts, (x, i) => ({
+      cartsItem: Array.from(this.props.pageCart.length===0?this.props.carts:this.props.pageCart, (x, i) => ({
         ...x,
         isClick: false,
-        total: x.prices[this.props.index].amount,count:0
+        total: x.prices[this.props.index].amount,
+        count: 0,
       })),
       totalAmount: 0,
       active: false,
-      
     };
     this.handleIncrease = this.handleIncrease.bind(this);
     this.handleDecrease = this.handleDecrease.bind(this);
@@ -127,7 +125,7 @@ const newItems= this?.state?.cartsItem?.map(item=>{
 this.setState((st) => {
   return {
     cartsItem: newItems,
-    totalAmount: st.total ,
+    totalAmount: st.totalAmount,
     active: st.active,
     
   };
@@ -155,14 +153,15 @@ this.setState((st) => {
     })
   }
 
-
+  
   componentDidMount() {
     this.setState((st, props) => {
       return {
-        cartsItem: Array.from(props.carts, (x, i) => ({
+        cartsItem: Array.from(props?.pageCart?.length===0?props?.carts:props?.pageCart, (x, i) => ({
           ...x,
           isClick: false,
-          total: x.prices[props.index].amount,count:0
+          total: x.prices[props.index].amount,
+          count: 0,
         })),
         totalAmount: 0,
         active: false,
@@ -170,14 +169,14 @@ this.setState((st) => {
     });
   }
 
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.carts !== this.props.carts) {
-      const totalVal = this.props.carts
-        .reduce((a, b) => a + b.prices[this.props.index].amount, 0)
-        .toFixed(2);
+    if (prevProps.pageCart !== this.props.pageCart) {
+      const totalVal = this.props.pageCart.reduce((a, b) => a + b.prices[this.props.index].amount, 0).toFixed(2);
+     
       this.setState(() => {
         return {
-          cartsItem: Array.from(this.props.carts, (x, i) => ({
+          cartsItem: Array.from(this.props.pageCart.length===0?this.props.carts:this.props.pageCart, (x, i) => ({
             ...x,
             isClick: false,
             total: x.prices[this.props.index].amount,count:0
@@ -190,57 +189,55 @@ this.setState((st) => {
   }
 
   render() {
-    const { index, initialTotal } = this.props;
-    const swatchClass = ["CDivG", "CDivC", "CDivB", "CDivBl", "CDivW"];
-    const currency = ["$", "£", "A$", "¥", "₽"];
     const { active, cartsItem, totalAmount } = this.state;
+    const { index, initialTotal,carts } = this.props;
+    const currency = ["$", "£", "A$", "¥", "₽"];
     const price = `${currency[index]}${totalAmount}`;
     const pTax = ((21 * totalAmount) / 100).toFixed(2);
     const priceTax = `${currency[index]}${pTax}`;
     const initialPrice = `${currency[index]}${initialTotal}`;
     const iPriceTax = ((21 * initialTotal) / 100).toFixed(2);
     const initialPriceTax = `${currency[index]}${iPriceTax}`;
-    
-    console.log(this.props.carts,'cvb');
 
+    console.log({cartpage:carts});
+
+    
+    
     return (
       <>
         <div className="CartPageWrap">
           <h2 className="CartPageTitle">Cart</h2>
-          
           {cartsItem?.map((cart) => (
-            <>
-              <div className="CartPageMainDiv">
-                <div className="AttributeCart">
-                  <p className="CartPageSubTitle">
-                    {this.getPrefixText(cart.name)}
-                  </p>
-                  <p className="CartNameText">
-                    {this.formatText(cart.name).length < 5
-                      ? ""
-                      : this.formatText(cart.name)}
-                  </p>
-                  <p className="Price">{`${cart.prices[index].currency.symbol}${cart.prices[index].amount}`}</p>
-                  <div className="Attribute">
-                    {cart?.attributes?.map((att) => {
-                      if (att.type === "swatch") {
-                        return (
-                          <div key={att.id} className="CartAttributeDiv">
-                            <p className="CartPageNameAtt">{att.name}</p>
-                            <div className="CartAttItemwrapper">
-                              {swatchClass?.map((item) => (
-                                <div key={item} className={item}></div>
-                              ))}
-                            </div>
-                          </div>
-                        );
-                      } else {
-                        return <ProductDescriptionChild att={att} />;
-                      }
-                    })}
+            <div className="PageMainDiv">
+              <div className="PageAtt">
+                <p className="CartPageSubTitle">
+                  {this.getPrefixText(cart.name)}
+                </p>
+                <p className="CartNameText">
+                  {this.formatText(cart.name).length < 5
+                    ? ""
+                    : this.formatText(cart.name)}
+                </p>
+                <p className="Price">{`${cart.prices[index].currency.symbol}${cart.prices[index].amount}`}</p>
+{/* 
+
+
+
+for swatch 
+
+
+*/}
+                <div className="Section-Att">
+                  <div className="CartAttributeDiv">
+                    <p className="CartPageNameAtt">{cart.attributes[0].name}</p>
+                    <div className="BoxOn">{cart.attributes[0].value}</div>
                   </div>
                 </div>
-                <div className="Quantity-Control">
+
+
+              </div>
+
+              <div className="Quantity-Control">
                   <div className="Cart-Control">
                     <div
                       className="ContBtns"
@@ -282,32 +279,34 @@ this.setState((st) => {
                     </div>:''}
                   </div>
                 </div>
-              </div>
-              
-            </>
+            </div>
           ))}
 
-          <div className="Total">
+<div className="Total">
             <div className="Tax">
               <p className="Taxp">Tax 21%:</p>
               <p className="SpanAll Taxvalue">
-                {active ? priceTax : initialPriceTax}
+               {active ? priceTax : initialPriceTax} 
               </p>
             </div>
 
             <p className="Taxp">
               Quantity:
-              <span className="SpanAll">{this.props.carts.length}</span>{" "}
+              <span className="SpanAll">{this.props.pageCart.length}</span>{" "}
             </p>
             <p className="Taxp">
-              Total:<span className="Ext">{active ? price : initialPrice}</span>
+              Total:<span className="Ext">
+          
+                {active ? price : initialPrice}
+                </span>
             </p>
             <div className="Button">
               <button className="Cart-Btn-View" onClick={this.navigatePage}>
                 order
               </button>
             </div>
-          </div>
+
+</div>
         </div>
       </>
     );
@@ -322,8 +321,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 function mapStateToProps(state) {
-  const { carts, index, initialTotal } = state;
-  return { carts: carts, index: index, initialTotal: initialTotal };
+  const { pageCart,carts ,index, initialTotal } = state;
+  return { carts: carts,pageCart: pageCart, index: index, initialTotal: initialTotal };
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps )(CartPage));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartPage));

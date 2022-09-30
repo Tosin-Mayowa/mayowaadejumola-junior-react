@@ -47,7 +47,7 @@ margin-left: 200px;
   line-height: 40px;
 }
 
-.CartAttributeDiv {
+.CartPageAttributeDiv {
   display: flex;
   flex-direction: column;
 }
@@ -82,6 +82,18 @@ margin-left: 200px;
   margin-left: 8px;
 }
 
+.BoxOn{
+  width: 63px;
+  height: 45px;
+  color: #fff;
+  background: #1D1F22;
+  border: 1px solid #1D1F22;
+  text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+}
 
 .SpanAll {
   width: 184px;
@@ -149,7 +161,7 @@ margin-left: 200px;
 margin-bottom: 30px;
 }
 
-.Attribute {
+.PageAttribute {
   display: flex;
   flex-direction: column;
 }
@@ -187,13 +199,13 @@ margin-bottom: 30px;
   justify-content: space-around;
 }
 
-.CartAttItemwrapper {
+.Itemwrapper {
   display: flex;
 
   margin-top: -6px;
 }
 
-.CartPageMainDiv {
+.PageMainDiv {
  display: flex;
 justify-content: space-between;
  
@@ -204,7 +216,7 @@ justify-content: space-between;
   margin-left: 200px;
 }
 
-.AttributeCart{
+.PageAtt{
   padding: 0px 0px 20px 0px;
 }
 

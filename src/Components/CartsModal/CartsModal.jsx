@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./CartsModal.css";
 import { withRouter } from "../../withRouter";
 import CartModalChild from "../CartModalChild/CartModalChild";
-import { removeProduct } from "../../redux/action";
+import { addFromModal, addToCartWithSelectedAtt, removeProduct } from "../../redux/action";
 class CartsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -15,10 +15,14 @@ class CartsModal extends React.Component {
       })),
       totalAmount: 0,
       active: false,
+      attributes:[],
+      isDisabled:true,
     };
     this.handleIncrease = this.handleIncrease.bind(this);
     this.handleDecrease = this.handleDecrease.bind(this);
     this.navigatePage = this.navigatePage.bind(this);
+    this.getNewAtt=this.getNewAtt.bind(this);
+    this.setDisabled=this.setDisabled.bind(this);
   }
 
   handleIncrease(id, ind) {
@@ -82,8 +86,22 @@ class CartsModal extends React.Component {
     });
   }
 
+  getNewAtt(arr){
+    
+    const attributeSet=arr.filter(att=>att.clicked===true);
+    console.log(attributeSet,'arr');
+    this.setState({  attributes: attributeSet});
+  }
+
+
   navigatePage() {
     this.props.navigate("/cartPage");
+  }
+
+
+  setDisabled(val){
+    
+    this.setState({ isDisabled: !val });
   }
 
   componentDidMount() {
@@ -126,20 +144,25 @@ class CartsModal extends React.Component {
     const price = `${currency[index]}${totalAmount}`;
     const initialPrice = `${currency[index]}${initialTotal}`;
 
+
+const newCarts=this.props.carts.map(cart=>({...cart,attributes:this.state.attributes}))
+console.log(newCarts,'set');
+
+
     if (this.props.carts.length === 0) {
       return (
-        <div className="CartWrapper">
-          <div className="Cart-Bag">
-            <h2 className="BagHeader">
+        <div className="ModalCartWrapper">
+          <div className="ModalCart-Bag">
+            <h2 className="ModalBagHeader">
               `My Bag, {this.props.carts.length} items`
             </h2>
-            <div className="Cart-Total">
+            <div className="ModalCart-Total">
               <p>Total</p>
               <p>0</p>
             </div>
-            <div className="Button">
-              <button className="Btn-view">VIEW BAG</button>
-              <button className="Btn-view Left" disabled>
+            <div className="ModalButton">
+              <button className="ModalBtn-view">VIEW BAG</button>
+              <button className="ModalBtn-view Left" disabled>
                 CHECK OUT
               </button>
             </div>
@@ -150,23 +173,23 @@ class CartsModal extends React.Component {
 
     return (
       <>
-        <div className="CartWrapper">
-          <div className="Cart-Bag">
-            <h2 className="BagHeader">
+        <div className="ModalCartWrapper">
+          <div className="ModalCart-Bag">
+            <h2 className="ModalBagHeader">
               `My Bag, {this.props.carts.length} items`
             </h2>
             {cartsItem?.map((cart) => (
-              <div className="Bag">
+              <div className="ModalBag">
                 <div>
                   <p> {cart.name}</p>
                   <p>{`${cart.prices[index].currency.symbol}${cart.prices[index].amount}`}</p>
-                  <div className="AttMainDivWrap">
+                  <div className="ModalAttMainDivWrap">
                     {cart.attributes.map((att) => {
                       if (att.type === "swatch") {
                         return (
-                          <div key={att.id} className="AttMainDiv">
+                          <div key={att.id} className="ModalAttMainDiv">
                             <p>{att.name}</p>
-                            <div className="AttItemwrapper">
+                            <div className="ModalAttItemwrapper">
                               {swatchClass.map((item) => (
                                 <div key={item} className={item}></div>
                               ))}
@@ -174,22 +197,22 @@ class CartsModal extends React.Component {
                           </div>
                         );
                       } else {
-                        return <CartModalChild att={att} />;
+                        return <CartModalChild att={att} getNewAtt={this.getNewAtt} setDisabled={this.setDisabled}/>;
                       }
                     })}
                   </div>
                 </div>
-                <div className="Control">
+                <div className="ModalControl">
                   <div>
                     <div
-                      className="BtnSy"
+                      className="ModalBtnSy"
                       onClick={() => this.handleIncrease(cart.id, index)}
                     >
                       +
                     </div>
-                    <div className="Counter">{cart.qty}</div>
+                    <div className="ModalCounter">{cart.qty}</div>
                     <div
-                      className="BtnSy"
+                      className="ModalBtnSy"
                       onClick={() => {
                         cart.qty === 1
                           ? removeProduct(cart.id)
@@ -203,21 +226,35 @@ class CartsModal extends React.Component {
                     <img
                       src={cart.gallery[0]}
                       alt="product"
-                      className="Image"
+                      className="ModalImage"
                     />
                   </div>
                 </div>
               </div>
             ))}
-            <div className="Cart-Total">
+            <div className="ModalCart-Total">
               <p>Total</p>
               <p>{active ? price : initialPrice}</p>
             </div>
-            <div className="Button">
-              <button className="Btn-view" onClick={this.navigatePage}>
+            <div className="ModalButton">
+             {this?.props?.carts[0]?.attributes[0]?.items?.length!==undefined?<button className="ModalBtn-view" onClick={()=>{
+               console.log({addFromModal:addFromModal});
+                this.navigatePage();
+                this.props.addFromModal( newCarts);
+              }}
+              disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
+              >
                 VIEW BAG
-              </button>
-              <button className="Btn-view Left">CHECK OUT</button>
+              </button>:<button className="ModalBtn-view" onClick={()=>{
+                console.log({addToCartWithSelectedAtt:addToCartWithSelectedAtt});
+                this.navigatePage();
+                this.props.addToCartWithSelectedAtt( newCarts);
+              }}
+              disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
+              >
+                VIEW BAG
+              </button>} 
+              <button className="ModalBtn-view ModalLeft">CHECK OUT</button>
             </div>
           </div>
         </div>
@@ -230,12 +267,15 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // dispatching actions returned by action creators
     removeProduct: (id) => dispatch(removeProduct(id)),
+    addToCartWithSelectedAtt: (item) => dispatch(addToCartWithSelectedAtt(item)),
+    addFromModal: (item) => dispatch(addFromModal(item))
+    
   };
 };
 
 function mapStateToProps(state) {
-  const { carts, index, initialTotal } = state;
-  return { carts: carts, index: index, initialTotal: initialTotal };
+  const { carts, pageCart,index, initialTotal } = state;
+  return { carts: carts, pageCart: pageCart,index: index, initialTotal: initialTotal };
 }
 
 export default withRouter(

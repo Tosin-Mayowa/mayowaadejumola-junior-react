@@ -1,17 +1,17 @@
-.ProductAttributeBoxOn{
-    width: 63px;
-    height: 45px;
-    color: #fff;
-    background: #1D1F22;
-    border: 1px solid #1D1F22;
-    text-align: center;
+.DescProductAttributeBoxOn{
+  width: 63px;
+  height: 45px;
+  color: #fff;
+  background: #1D1F22;
+  border: 1px solid #1D1F22;
+  text-align: center;
 display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
     }
 
-    .ProductAttributeBoxOff{
+    .DescProductAttributeBoxOff{
         width: 63px;
         height: 45px;
         border: 1px solid #1D1F22;
@@ -23,12 +23,14 @@ cursor: pointer;
         }
 
 
-.ProductAttributeBoxOff:not(.ProductAttributeBoxOff:first-child){
+.DescProductAttributeBoxOff:not(.DescProductAttributeBoxOff:first-child){
     margin-left: 12px;
   }
 
-  .ProductAttributeBoxOn:not(.ProductAttributeBoxOn:first-child){
+  .DescProductAttributeBoxOn:not(.DescProductAttributeBoxOn:first-child){
     margin-left: 12px;
   }
 
- 
+ .DescCartAttItemwrapper{
+  display: flex;
+ }

@@ -5,38 +5,60 @@ class ProductDescriptionChild extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      attributes: Array.from(this.props.att.items, (x,i)=>({...x,isClicked:false}))
+      attributes: Array.from(this.props.att.items, (x,i)=>({...x,clicked:false,notClicked:true}))
     };
     this.setClick = this.setClick.bind(this);
   }
 
   setClick(val){
 const newAtt=this.state.attributes.map(item=>{
-    if(item.value===val){
-        return {...item,isClicked:!item.isClicked};
-    }else{
-        return item;
+    if(item.value===val&&item.clicked===false){
+        return {...item,clicked:true,notClicked:false,name:this.props.att.name};
+    }else if (item.value===val&&item.clicked===true){
+      return {...item,clicked:false,notClicked:true,name:this.props.att.name};
+    }
+    else{
+        return {...item,clicked:false,notClicked:true,name:this.props.att.name};
     }
 })
 this.setState({attributes:newAtt})
   }
 
+  componentDidMount() {
+    console.log('did',this.state.attributes.some(item=>item.clicked===true));
+    this.props.getNewAtt(this.state.attributes);
+    this.props.setDisabled(this.state.attributes.some(item=>item.clicked===true))
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.attributes !== this.state.attributes ) {
+      console.log('upd',this.state.attributes.some(item=>item.clicked===true));
+      this.props.getNewAtt(this.state.attributes);
+      this.props.setDisabled(this.state.attributes.some(item=>item.clicked===true))
+    }
+  }
 
 
   render() {
    const {att}= this.props;
+
+
   
-    
     return (
       <>
-        <div key={att.id} className="CartAttributeDiv">
-                                <p className="CartPageNameAtt">{att.name}</p>
-                                <div className="CartAttItemwrapper">
+        <div key={att.id} className="DescCartAttributeDiv">
+                                <p className="DescCartPageNameAtt">{att.name}</p>
+                                <div className="DescCartAttItemwrapper">
                                   {this.state.attributes.map((item) => (
                                     <div
                                       key={item.value}
-                                     className={item.isClicked?'ProductAttributeBoxOn':'ProductAttributeBoxOff'} 
-                                     onClick={()=>this.setClick(item.value)}
+                                     className={item.clicked===true && item.notClicked===false?'DescProductAttributeBoxOn':'DescProductAttributeBoxOff'} 
+                                     onClick={()=>{
+                                     
+                                      
+                                      this.setClick(item.value);
+                                     
+                                    }}
                                     >
                                       {item.value}
                                     </div>

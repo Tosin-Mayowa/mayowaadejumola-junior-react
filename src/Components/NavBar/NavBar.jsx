@@ -7,24 +7,18 @@ import Logoicon3 from "../Image/svg21.png";
 
 import "./NavBar.css";
 
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import CartsModal from "../CartsModal/CartsModal";
 
-
 import CurrencyList from "../CurrencyList/CurrencyList";
+import { connect } from "react-redux";
+import { setOverflow } from "../../redux/action";
 
 const GET_CATEGORIES = gql`
   query {
     categories {
       name
-      products {
-        prices {
-          currency {
-            label
-            symbol
-          }
-        }
-      }
+     
     }
   }
 `;
@@ -33,22 +27,17 @@ class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-     
       isOpen: false,
-    
     };
-   this.setBool=this.setBool.bind(this);
+    this.setBool = this.setBool.bind(this);
   }
 
-  setBool(val){
-    this.setState({ isOpen: !val
-    })
+  setBool(val) {
+    this.setState({ isOpen: !val });
+    
   }
-
-  
 
   render() {
-   
     return (
       <>
         <Query query={GET_CATEGORIES}>
@@ -56,21 +45,18 @@ class NavBar extends React.Component {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error </div>;
 
-          
-
             return (
               <>
-                <nav className="Nav-bar" >
-                  <div className="Nav"  >
+                <nav className="Nav-bar">
+                  <div className="Nav">
                     <ul className="ListParent">
                       {data.categories.map((cat) => (
                         <li className="List">
-                          <NavLink 
-                            
+                          <NavLink
                             to={cat.name === "all" ? "/" : `/${cat.name}`}
                             className={({ isActive }) =>
-                            isActive ? 'active' : 'Nav-Link'
-                          }
+                              isActive ? "active" : "Nav-Link"
+                            }
                           >
                             {cat.name}
                           </NavLink>
@@ -87,46 +73,21 @@ class NavBar extends React.Component {
                       </div>
                     </div>
 
-
-
-
-                    <CurrencyList  isOpen={this.state.isOpen}  setBool={this.setBool}/>
-
-
-                    {/* <div className="Cart" >
-                      <div className="Symbol">
-                        <div className="Symbol">
-                          <p className="DollarSign" onClick={()=>this.props.isOpenSwitcher()}>$</p>
-                          <div>
-                            {this.props.isOpenedSwitcher ? (
-                              <img
-                                src={ArrowUpIcon}
-                                alt=""
-                                className="ArrowIcon"
-                                onClick={()=>this.props.isCloseSwitcher()}
-                              />
-                            ) : (
-                              <img
-                                src={ArrowDownIcon}
-                                alt=""
-                                className="ArrowIcon"
-                                onClick={()=>this.props.isOpenSwitcher()}
-                              />
-                            )}
-                          </div>
-                        </div>
-
-                        
-                      </div>
-
-                     
-                    </div> */}
+                    <CurrencyList
+                      isOpen={this.state.isOpen}
+                      setBool={this.setBool}
+                    />
                   </div>
-                  {this.state.isOpen && (
-                    <div className="Modal">
-                      <CartsModal isOpen={this.state.isOpen} />
+                  <div className={this.state.isOpen?"Modal":"" }>
+                  
+                    <div className={this.state.isOpen?"Modal":"" }  onClick={()=>{
+                      this.setBool(this.state.isOpen);
+                      this.props.setOverflow()
+                      }}>
+                     
                     </div>
-                  )}
+                    {this.state.isOpen && ( <CartsModal isOpen={this.state.isOpen} />)}
+                  </div>
                 </nav>
               </>
             );
@@ -137,6 +98,12 @@ class NavBar extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    // dispatching actions returned by action creators
+   
+    setOverflow: () => dispatch(setOverflow()),
+  };
+};
 
-
-export default NavBar;
+export default connect(null, mapDispatchToProps)(NavBar);

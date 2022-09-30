@@ -1,9 +1,6 @@
-.CartWrapper::-webkit-scrollbar {
-  width: 10px;
-}
 
 
-.BagHeader {
+.ModalBagHeader {
   width: 118px;
   height: 26px;
   font-family: "Raleway";
@@ -18,15 +15,17 @@
   color: #1d1f22;
 }
 
-.CartWrapper{
+.ModalCartWrapper{
     width: 400px;
     height: 100vh;
     z-index: 1000;
+ 
+   
     padding: 20px;
    
 }
 
-.Cart-Bag{
+.ModalCart-Bag{
   background-color: #fff;
   width: 400px;
   padding: 20px;
@@ -36,7 +35,7 @@
 
 
 
-.Bag {
+.ModalBag {
   /* display: flex;
 justify-content: space-between; */
   display: grid;
@@ -49,25 +48,25 @@ justify-content: space-between; */
  
 }
 
-.Counter {
+.ModalCounter {
   margin-top: 60px;
   margin-bottom: 65px;
   margin-left: 9px;
 }
 
-.Image {
+.ModalImage {
   width: 121px;
   height: 190px;
   margin-right: -70px;
 }
 
-.AttMainDiv {
+.ModalAttMainDiv {
   display: flex;
   flex-direction: column;
 }
 
 
-.AttItem {
+.ModalAttItem {
   text-align: center;
   border: 1px solid #1d1f22;
   width: 25px;
@@ -83,17 +82,17 @@ justify-content: space-between; */
   padding: 5px;
 }
 
-.AttItemwrapper {
+.ModalAttItemwrapper {
   display: flex;
   margin-top: -6px;
 }
 
 
-.AttItem:not(.AttItem:first-child) {
+.ModalAttItem:not(.ModalAttItem:first-child) {
   margin-left: 6px;
 }
 
-.AttMainDivWrap {
+.ModalAttMainDivWrap {
   margin-top: -15px;
 }
 
@@ -101,7 +100,7 @@ justify-content: space-between; */
 
 
 
-.BtnSy {
+.ModalBtnSy {
   cursor: pointer;
   width: 20px;
   height: 20px;
@@ -194,7 +193,7 @@ justify-content: space-between; */
   margin-left: 6px;
 }
 
-.Cart-Total{
+.ModalCart-Total{
     display:flex;
     justify-content: space-between;
     width: 85%;
@@ -206,13 +205,13 @@ line-height: 18px;
 margin-top: 5px;
 }
 
-.Button{
+.ModalButton{
     
     display: flex;
     padding: 10px;
    
 }
-.Btn-view{
+.ModalBtn-view{
     display: flex;
 flex-direction: column;
 justify-content: center;
@@ -229,11 +228,11 @@ background: #FFFFFF;
 border: 1px solid #1D1F22;
 
 }
-.Left{
+.ModalLeft{
     margin-left: 15px;
 }
 
-.Btn-view:hover{
+.ModalBtn-view:hover{
     background: #5ECE7B;
     color: #FFFFFF;
 }
@@ -247,7 +246,7 @@ border: 1px solid #1D1F22;
   margin-top: 15px;
 }
 
-.Control{
+.ModalControl{
    display: flex;
    justify-content: space-between;
 }
