@@ -1,6 +1,7 @@
 const initialState = {
   carts: [],
   pageCart: [],
+  cartsPage: [],
   index: 0,
   initialTotal: 0,
   isOpenedSwitcher: false,
@@ -78,14 +79,18 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type === "REMOVE") {
-    console.log(state.pageCart.length,'pgcart');
-    console.log(state.carts,'carts');
+  
     return {
-      ...state,carts:[],
+      ...state,
+      carts: [],
       pageCart:
         state.pageCart.length === 1
           ? []
-          : [...state.pageCart.filter((cart) => cart.attributes[0].value !== action.payload)],
+          : [
+              ...state.pageCart.filter(
+                (cart) => cart.attributes[0].value !== action.payload
+              ),
+            ],
     };
   }
 
@@ -94,8 +99,8 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type === "WITH SELECTED ATTRIBUTES") {
-  
-
+    console.log(action.payload,'actionpay');
+    console.log(action.payload.attributes,'act att in pay');
     let newState =
       state.carts.length === 0
         ? { ...state, carts: [...state.carts, action.payload] }
@@ -105,10 +110,13 @@ export default function reducer(state = initialState, action) {
               ...state.carts.reduce((cart, val) => {
                 if (val.id === action.payload.id) {
                   if (
-                    val.attributes[0].value ===
-                    action.payload.attributes[0].value
+                    action.payload.attributes.some(act=>act.value===val.attributes[0].value) 
+                    
                   ) {
-                    return cart.push(val);
+                   
+             const actionPay= {...action.payload,attributes:action.payload.attributes.filter(pay=>pay.value!==val.attributes[0].value)};
+             cart.push(val,actionPay)
+                    return cart;
                   } else {
                     return [...state.carts, action.payload];
                   }
@@ -117,7 +125,9 @@ export default function reducer(state = initialState, action) {
                     state.carts.length >= 2
                       ? [
                           ...state.carts.filter(
-                            (item) => item.id !== action.payload.id
+                            (item) =>
+                              item.attributes[0].value ===
+                              action.payload.attributes[0].value
                           ),
                           action.payload,
                         ]
@@ -127,10 +137,12 @@ export default function reducer(state = initialState, action) {
               }, []),
             ],
           };
+console.log('newState',newState);
     const realState = {
       ...newState,
       carts: newState.carts?.map((item) => ({ ...item, qty: 1 })),
     };
+    console.log('realStateD',realState);
     return realState;
   }
 
@@ -149,10 +161,10 @@ export default function reducer(state = initialState, action) {
                         pay.attributes[0].value === item.attributes[0].value
                     )
                   ) {
-                    return ar.push(item);
+                    ar.push(item);
+                    return ar;
                   } else {
                     return [...state.pageCart, ...action.payload];
-                    
                   }
                 } else {
                   const newVal =
@@ -179,16 +191,59 @@ export default function reducer(state = initialState, action) {
       pageCart: newState.pageCart?.map((item) => ({ ...item, qty: 1 })),
     };
 
-   
-  
-
     return realState;
   }
 
-  if (action.type ==="REMOVE FROM MODAL"){
-    console.log('am call');
-        return {...state, carts:state.carts.length===1?[]:[...state.carts.filter(cart=>cart.id!==action.payload)] }
-      }
+  if (action.type === "REMOVE FROM MODAL") {
+    return {
+      ...state,
+      carts:
+        state.carts.length === 1
+          ? []
+          : [...state.carts.filter((cart) => cart.id !== action.payload)],
+    };
+  }
+
+  if (action.type === "ADD FROM PRODUCT DESCRIPTION") {
+    let newState =
+      state.cartsPage.length === 0
+        ? { ...state, cartsPage: [...state.cartsPage, ...action.payload] }
+        : {
+            ...state,
+            carts: [
+              ...state.cartsPage.reduce((cart, val) => {
+                if (val.id === action.payload.id) {
+                  if (
+                    val.attributes[0].value ===
+                    action.payload.attributes[0].value
+                  ) {
+                    return cart.push(val);
+                  } else {
+                    return [...state.cartsPage, action.payload];
+                  }
+                } else {
+                  const newVal =
+                    state.cartsPage.length >= 2
+                      ? [
+                          ...state.cartsPage.filter(
+                            (item) => item.id !== action.payload.id
+                          ),
+                          action.payload,
+                        ]
+                      : [...state.cartsPage, action.payload];
+                  return newVal;
+                }
+              }, []),
+            ],
+          };
+
+    const realState = {
+      ...newState,
+      cartsPage: newState.cartsPage?.map((item) => ({ ...item, qty: 1 })),
+    };
+
+    return realState;
+  }
 
   return state;
 }

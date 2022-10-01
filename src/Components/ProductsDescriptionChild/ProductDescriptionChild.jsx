@@ -25,25 +25,24 @@ this.setState({attributes:newAtt})
   }
 
   componentDidMount() {
-    console.log('did',this.state.attributes.some(item=>item.clicked===true));
+   
     this.props.getNewAtt(this.state.attributes);
     this.props.setDisabled(this.state.attributes.some(item=>item.clicked===true))
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.attributes !== this.state.attributes ) {
-      console.log('upd',this.state.attributes.some(item=>item.clicked===true));
+    
       this.props.getNewAtt(this.state.attributes);
       this.props.setDisabled(this.state.attributes.some(item=>item.clicked===true))
     }
   }
 
 
+
   render() {
    const {att}= this.props;
-
-
-  
+ 
     return (
       <>
         <div key={att.id} className="DescCartAttributeDiv">

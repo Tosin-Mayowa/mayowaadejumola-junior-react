@@ -334,3 +334,18 @@ justify-content: space-between;
 .MainImageParent{
   margin-bottom: 30px;
 }
+
+
+.PageCartAttMainDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+.PageCartAttMainDivWrap {
+  margin-top: -15px;
+}
+
+.PageCartAttItemwrapper {
+  display: flex;
+  margin-top: -6px;
+}

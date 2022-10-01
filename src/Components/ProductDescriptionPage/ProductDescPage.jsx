@@ -42,35 +42,40 @@ class ProductDescPage extends React.Component {
     super(props);
     this.state = {
       url: "",
-      isDisabled:true,
-      attributes:[],
-      swatchAttributes:[]
+      isDisabled: true,
+      attributes: [],
+      swatchAttributes: [],
     };
 
     this.setImage = this.setImage.bind(this);
     this.formatText = this.formatText.bind(this);
     this.getPrefixText = this.getPrefixText.bind(this);
-   this.setDisabled=this.setDisabled.bind(this);
-   this.getNewAtt=this.getNewAtt.bind(this);
-   this.getNewSwatchAtt=this.getNewSwatchAtt.bind(this)
+    this.setDisabled = this.setDisabled.bind(this);
+    this.getNewAtt = this.getNewAtt.bind(this);
+    this.getNewSwatchAtt = this.getNewSwatchAtt.bind(this);
   }
 
   setImage(val) {
     this.setState({ url: val });
   }
 
-  getNewSwatchAtt(arr){
-    console.log(arr,'sw');
-    const attributeSet=arr.filter(att=>att.clicked===true);
-    this.setState({  swatchAttributes: attributeSet});
+  getNewSwatchAtt(arr) {
+    console.log(arr, "sw");
+    const attributeSet = arr.filter((att) => att.clicked === true);
+    this.setState({ swatchAttributes: attributeSet });
   }
 
-  getNewAtt(arr){
-    console.log(arr,'arr');
-    const attributeSet=arr.filter(att=>att.clicked===true);
-    this.setState({  attributes: attributeSet});
-  }
+  getNewAtt(arr) {
+    console.log(arr, "arr");
 
+    const attributeSet = arr.filter((att) => att.clicked === true);
+
+    this.setState((st, props) => {
+      return {
+        attributes: [...st.attributes, ...attributeSet],
+      };
+    });
+  }
 
   formatText(text) {
     const indexSlice = text.indexOf(" ");
@@ -89,18 +94,14 @@ class ProductDescPage extends React.Component {
     return newText;
   }
 
-  setDisabled(val){
-    
+  setDisabled(val) {
     this.setState({ isDisabled: !val });
   }
-
-
 
   render() {
     const swatchClass = ["CDivGP", "CDivCP", "CDivBP", "CDivBlP", "CDivWP"];
     const { index } = this.props;
-    
-   
+
     return (
       <>
         <Query query={GET_PRODUCT} variables={{ id: this.props.params.id }}>
@@ -108,10 +109,21 @@ class ProductDescPage extends React.Component {
             if (loading) return <div>Loading...</div>;
             if (error) return <div>Error </div>;
             const { product } = data;
+
+            const newProduct = {
+              ...product,
+              attributes: this.state.attributes,
+            };
+            const newProductSwatch = {
+              ...product,
+              attributes: [
+                ...this.state.attributes,
+                ...this.state.swatchAttributes,
+              ],
+            };
           
-            const newProduct={...product,attributes:this.state.attributes}
-         const   newProductSwatch={...product,attributes:[...this.state.attributes,...this.state.swatchAttributes]}
-         console.log(newProductSwatch,'swatcnew');
+            console.log(this.state.attributes, "att pr desc");
+            console.log(newProduct, "new pro");
             return (
               <>
                 <div className="ParentDiv">
@@ -146,10 +158,20 @@ class ProductDescPage extends React.Component {
                         {product.attributes.map((att) => {
                           if (att.type === "swatch") {
                             return (
-                             <ProductSwatch att={att} getNewSwatchAtt={this.getNewSwatchAtt} swatchClass={swatchClass}/>
+                              <ProductSwatch
+                                att={att}
+                                getNewSwatchAtt={this.getNewSwatchAtt}
+                                swatchClass={swatchClass}
+                              />
                             );
                           } else {
-                            return <ProductDescriptionChild att={att} getNewAtt={this.getNewAtt} setDisabled={this.setDisabled} />;
+                            return (
+                              <ProductDescriptionChild
+                                att={att}
+                                getNewAtt={this.getNewAtt}
+                                setDisabled={this.setDisabled}
+                              />
+                            );
                           }
                         })}
                       </div>
@@ -160,15 +182,19 @@ class ProductDescPage extends React.Component {
                           <button
                             className="ButtonAdd"
                             onClick={() => {
-console.log('working');
-                              this.props.addToCartWithSelectedAtt(this.state.swatchAttributes.length===0 ?newProduct:newProductSwatch);
+                              console.log('working');
+                              this.props.addToCartWithSelectedAtt(
+                                this.state.swatchAttributes.length === 0
+                                  ? newProduct
+                                  : newProductSwatch
+                              );
                             }}
                             disabled={this.state.isDisabled}
                           >
                             Add To Cart
                           </button>
                         ) : (
-                          <button className="ButtonAdd" >Add To Cart</button>
+                          <button className="ButtonAdd">Add To Cart</button>
                         )}
                       </div>
                       <div className="Description">
@@ -194,7 +220,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToCart: (cart) => dispatch(addToCart(cart)),
-    addToCartWithSelectedAtt: (item) => dispatch(addToCartWithSelectedAtt(item))
+    addToCartWithSelectedAtt: (item) =>
+      dispatch(addToCartWithSelectedAtt(item)),
   };
 };
 

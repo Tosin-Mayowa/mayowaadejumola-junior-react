@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import "./CartsModal.css";
 import { withRouter } from "../../withRouter";
 import CartModalChild from "../CartModalChild/CartModalChild";
-import { addFromModal, addToCartWithSelectedAtt, removeFromModal, removeProduct } from "../../redux/action";
+import { addFromModal, addToCartFromDesc, removeFromModal, removeProduct } from "../../redux/action";
 class CartsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -17,12 +17,14 @@ class CartsModal extends React.Component {
       active: false,
       attributes:[],
       isDisabled:true,
+      swatchAttributes:[]
     };
     this.handleIncrease = this.handleIncrease.bind(this);
     this.handleDecrease = this.handleDecrease.bind(this);
     this.navigatePage = this.navigatePage.bind(this);
     this.getNewAtt=this.getNewAtt.bind(this);
     this.setDisabled=this.setDisabled.bind(this);
+    this.getNewSwatchAtt=this.getNewSwatchAtt.bind(this)
   }
 
   handleIncrease(id, ind) {
@@ -86,10 +88,17 @@ class CartsModal extends React.Component {
     });
   }
 
+
+  getNewSwatchAtt(arr){
+   
+    const attributeSet=arr.filter(att=>att.clicked===true);
+    this.setState({  swatchAttributes: attributeSet});
+  }
+
   getNewAtt(arr){
     
     const attributeSet=arr.filter(att=>att.clicked===true);
-    console.log(attributeSet,'arr');
+    
     this.setState({  attributes: attributeSet});
   }
 
@@ -98,6 +107,9 @@ class CartsModal extends React.Component {
     this.props.navigate("/cartPage");
   }
 
+  // navigatePageModal() {
+  //   this.props.navigate("/PageFromModal");
+  // }
 
   setDisabled(val){
     
@@ -105,6 +117,8 @@ class CartsModal extends React.Component {
   }
 
   componentDidMount() {
+    this.getNewAtt(this.props.carts[0].attributes);
+    // this.getNewSwatchAtt(this.props.carts[0].attributes)
     this.setState((st, props) => {
       return {
         cartsItem: Array.from(props.carts, (x, i) => ({
@@ -144,9 +158,9 @@ class CartsModal extends React.Component {
     const price = `${currency[index]}${totalAmount}`;
     const initialPrice = `${currency[index]}${initialTotal}`;
 
-
+  
+    const newCartSwatch=this.props.carts.map(cart=>({...cart,attributes:[...this.state.attributes,...this.state.swatchAttributes]}))
 const newCarts=this.props.carts.map(cart=>({...cart,attributes:this.state.attributes}))
-console.log(newCarts,'set');
 
 
     if (this.props.carts.length === 0) {
@@ -240,16 +254,16 @@ console.log(newCarts,'set');
             <div className="ModalButton">
              {this?.props?.carts[0]?.attributes[0]?.items?.length!==undefined?<button className="ModalBtn-view" onClick={()=>{
                console.log({addFromModal:addFromModal});
-                this.navigatePage();
+               this.navigatePage();
                 this.props.addFromModal( newCarts);
               }}
               disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
               >
                 VIEW BAG
               </button>:<button className="ModalBtn-view" onClick={()=>{
-                console.log({addToCartWithSelectedAtt:addToCartWithSelectedAtt});
+                console.log('with elected att viewbtn');
                 this.navigatePage();
-                this.props.addToCartWithSelectedAtt( newCarts);
+                this.props.addToCartFromDesc( newCarts);
               }}
               disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
               >
@@ -268,7 +282,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     // dispatching actions returned by action creators
     removeProduct: (id) => dispatch(removeProduct(id)),
-    addToCartWithSelectedAtt: (item) => dispatch(addToCartWithSelectedAtt(item)),
+    addToCartFromDesc: (item) => dispatch(addToCartFromDesc(item)),
     addFromModal: (item) => dispatch(addFromModal(item)),
     removeFromModal:(id)=>dispatch(removeFromModal(id))
   };
