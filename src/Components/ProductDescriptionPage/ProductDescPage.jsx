@@ -66,7 +66,7 @@ class ProductDescPage extends React.Component {
   }
 
   getNewAtt(arr) {
-    console.log(arr, "arr");
+    
 
     const attributeSet = arr.filter((att) => att.clicked === true);
 
@@ -122,8 +122,7 @@ class ProductDescPage extends React.Component {
               ],
             };
           
-            console.log(this.state.attributes, "att pr desc");
-            console.log(newProduct, "new pro");
+           
             return (
               <>
                 <div className="ParentDiv">

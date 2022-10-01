@@ -99,8 +99,7 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type === "WITH SELECTED ATTRIBUTES") {
-    console.log(action.payload,'actionpay');
-    console.log(action.payload.attributes,'act att in pay');
+  
     let newState =
       state.carts.length === 0
         ? { ...state, carts: [...state.carts, action.payload] }
@@ -137,16 +136,20 @@ export default function reducer(state = initialState, action) {
               }, []),
             ],
           };
-console.log('newState',newState);
+
     const realState = {
       ...newState,
       carts: newState.carts?.map((item) => ({ ...item, qty: 1 })),
     };
-    console.log('realStateD',realState);
+  
     return realState;
   }
 
+
   if (action.type === "ADD FROM MODAL") {
+    console.log(action.payload,'actionpayMo');
+    console.log(action.payload.attributes,'act att in payMo');
+
     let newState =
       state.pageCart.length === 0
         ? { ...state, pageCart: [...state.pageCart, ...action.payload] }
@@ -185,12 +188,12 @@ console.log('newState',newState);
               }, []),
             ],
           };
-
+         
     const realState = {
       ...newState,
       pageCart: newState.pageCart?.map((item) => ({ ...item, qty: 1 })),
     };
-
+    console.log('realStateMo',realState);
     return realState;
   }
 

@@ -94,14 +94,17 @@ class CartsModal extends React.Component {
     const attributeSet=arr.filter(att=>att.clicked===true);
     this.setState({  swatchAttributes: attributeSet});
   }
+  getNewAtt(arr) {
+    
 
-  getNewAtt(arr){
-    
-    const attributeSet=arr.filter(att=>att.clicked===true);
-    
-    this.setState({  attributes: attributeSet});
+    const attributeSet = arr.filter((att) => att.clicked === true);
+
+    this.setState((st, props) => {
+      return {
+        attributes: [...st.attributes, ...attributeSet],
+      };
+    });
   }
-
 
   navigatePage() {
     this.props.navigate("/cartPage");
@@ -161,8 +164,8 @@ class CartsModal extends React.Component {
   
     const newCartSwatch=this.props.carts.map(cart=>({...cart,attributes:[...this.state.attributes,...this.state.swatchAttributes]}))
 const newCarts=this.props.carts.map(cart=>({...cart,attributes:this.state.attributes}))
-
-
+console.log('cartsItem',cartsItem);
+console.log('modal',newCarts);
     if (this.props.carts.length === 0) {
       return (
         <div className="ModalCartWrapper">
@@ -199,7 +202,7 @@ const newCarts=this.props.carts.map(cart=>({...cart,attributes:this.state.attrib
                   <p>{`${cart.prices[index].currency.symbol}${cart.prices[index].amount}`}</p>
                   <div className="ModalAttMainDivWrap">
                     {cart.attributes.map((att) => {
-                      if (att.type === "swatch") {
+                      if (att.type === "swatch" && att?.items===undefined) {
                         return (
                           <div key={att.name} className="ModalAttMainDiv">
                             <p>{att.value}</p>
@@ -207,6 +210,19 @@ const newCarts=this.props.carts.map(cart=>({...cart,attributes:this.state.attrib
                               
                                 <div  className={att.name}></div>
                              
+                            </div>
+                          </div>
+                        );
+                      }else if(
+                        att.type === "swatch" && att?.items!==undefined
+                      ){
+                        return (
+                          <div key={att.id} className="ModalAttMainDiv">
+                            <p>{att.name}</p>
+                            <div className="ModalAttItemwrapper">
+                              {swatchClass.map((item) => (
+                                <div key={item} className={item}></div>
+                              ))}
                             </div>
                           </div>
                         );
