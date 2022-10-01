@@ -1,8 +1,7 @@
 import React from 'react';
-import './ProductSwatch.css';
+import './CartsSwatch.css';
 
-
-class ProductSwatch extends React.Component {
+class CartsModalSwatch extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -45,52 +44,34 @@ class ProductSwatch extends React.Component {
     render() {
      const {att}= this.props;
   const {swatchClass}=this.state;
-    console.log(swatchClass,'swatch');
+    console.log(swatchClass,'swatchm');
     
       return (
         <>
 
-
-<div
- key={att.id}
- className="ProductDescAttMainDiv"
->
- <p className="ProductAttributeName">
-   {att.name}
- </p>
- <div className="ProductDescItemwrapper">
-   {swatchClass.map((item) => (
-     <div key={item.name} className={item.clicked===true && item.notClicked===false?'Picked':item.name} 
-     onClick={()=>{
-         console.log('you click',item.name);                              
-                                        
-      this.setClick(item.name);
-     
-    }}
-     >
-
-     </div>
-   ))}
- </div>
-</div>
+<div key={att.id} className="ModalAttMainDiv">
+                            <p>{att.name}</p>
+                            <div className="ModalAttItemwrapper">
+                              {swatchClass.map((item) => (
+                                <div key={item.name} className={item.clicked===true && item.notClicked===false?'Selected':item.name}
+                                onClick={()=>{
+                                                                 
+                                                                   
+                                 this.setClick(item.name);
+                                
+                               }}
+                                ></div>
+                              ))}
+                            </div>
+                          </div>
 
 
 
-  
+
         </>
       );
     }
   }
   
-  export default ProductSwatch ;
+  export default CartsModalSwatch ;
   
-
-
-
-
-
-
-
-
-
- 

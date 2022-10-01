@@ -1,0 +1,110 @@
+.ModalAttMainDiv {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ModalAttItemwrapper {
+    display: flex;
+    margin-top: -6px;
+  }
+  
+  .DivG {
+    background-color: #44ff03;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 17px;
+    height: 17px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .DivC {
+    background-color: #03fff7;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 17px;
+    height: 17px;
+    margin-left: 6px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .DivB {
+    background-color: #030bff;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 17px;
+    height: 17px;
+    margin-left: 6px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+  
+  .DivBl {
+    background-color: #000;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 17px;
+    height: 17px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+  
+  .DivW {
+    background-color: #ffffff;
+    text-align: center;
+    border: 1px solid #1d1f22;
+    width: 17px;
+    height: 17px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }
+  
+  .Selected {
+    background-color: #000;
+    text-align: center;
+    border: 1px solid #000;
+    width: 17px;
+    height: 17px;
+    font-family: "Source Sans Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    align-items: center;
+    padding-top: 6px;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-left: 6px;
+  }

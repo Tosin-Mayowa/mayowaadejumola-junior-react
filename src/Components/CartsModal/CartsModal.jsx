@@ -4,6 +4,7 @@ import "./CartsModal.css";
 import { withRouter } from "../../withRouter";
 import CartModalChild from "../CartModalChild/CartModalChild";
 import { addFromModal, addToCartFromDesc, removeFromModal, removeProduct } from "../../redux/action";
+import CartsModalSwatch from "../Swatch/CartsModalSwatch";
 class CartsModal extends React.Component {
   constructor(props) {
     super(props);
@@ -120,7 +121,7 @@ class CartsModal extends React.Component {
   }
 
   componentDidMount() {
-    this.getNewAtt(this.props.carts[0].attributes);
+    // this.getNewAtt(this.props.carts[0].attributes);
     // this.getNewSwatchAtt(this.props.carts[0].attributes)
     this.setState((st, props) => {
       return {
@@ -162,11 +163,9 @@ class CartsModal extends React.Component {
     const initialPrice = `${currency[index]}${initialTotal}`;
 
   
-    const newCartSwatch=this.props.carts.map(cart=>({...cart,attributes:[...this.state.attributes,...this.state.swatchAttributes]}))
-const newCarts=this.props.carts.map(cart=>({...cart,attributes:this.state.attributes}))
-console.log('cartsItem',cartsItem);
-console.log('modal',newCarts);
-    if (this.props.carts.length === 0) {
+
+
+    if (this?.props?.carts?.length === 0) {
       return (
         <div className="ModalCartWrapper">
           <div className="ModalCart-Bag">
@@ -217,14 +216,17 @@ console.log('modal',newCarts);
                         att.type === "swatch" && att?.items!==undefined
                       ){
                         return (
-                          <div key={att.id} className="ModalAttMainDiv">
-                            <p>{att.name}</p>
-                            <div className="ModalAttItemwrapper">
-                              {swatchClass.map((item) => (
-                                <div key={item} className={item}></div>
-                              ))}
-                            </div>
-                          </div>
+                          <CartsModalSwatch  att={att}
+                          getNewSwatchAtt={this.getNewSwatchAtt}
+                          swatchClass={swatchClass}/>
+                          // <div key={att.id} className="ModalAttMainDiv">
+                          //   <p>{att.name}</p>
+                          //   <div className="ModalAttItemwrapper">
+                          //     {swatchClass.map((item) => (
+                          //       <div key={item} className={item}></div>
+                          //     ))}
+                          //   </div>
+                          // </div>
                         );
                       } else {
                         return <CartModalChild att={att} getNewAtt={this.getNewAtt} setDisabled={this.setDisabled}/>;
@@ -271,7 +273,9 @@ console.log('modal',newCarts);
              {this?.props?.carts[0]?.attributes[0]?.items?.length!==undefined?<button className="ModalBtn-view" onClick={()=>{
                console.log({addFromModal:addFromModal});
                this.navigatePage();
-                this.props.addFromModal( newCarts);
+                this.props.addFromModal(  this.state.swatchAttributes.length === 0
+                  ? this.props.carts.map(cart=>({...cart,attributes:this?.state?.attributes}))
+                  : this.props.carts.map(cart=>({...cart,attributes:[...this?.state?.attributes,...this?.state?.swatchAttributes]})));
               }}
               disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
               >
@@ -279,7 +283,7 @@ console.log('modal',newCarts);
               </button>:<button className="ModalBtn-view" onClick={()=>{
                 console.log('with elected att viewbtn');
                 this.navigatePage();
-                this.props.addToCartFromDesc( newCarts);
+                this.props.addToCartFromDesc( this.props.carts.map(cart=>({...cart,attributes:this?.state?.attributes})));
               }}
               disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
               >
