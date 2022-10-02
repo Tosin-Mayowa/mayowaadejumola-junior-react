@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeProduct } from "../../redux/action";
+import { removeFromCartPage} from "../../redux/action";
 import "./CartPage.css";
 import Rectangle from "../Image/Rectangle.png";
 import Slide from "../Image/slide.png";
@@ -212,8 +212,9 @@ class CartPage extends React.Component {
     const initialPrice = `${currency[index]}${initialTotal}`;
     const iPriceTax = ((21 * initialTotal) / 100).toFixed(2);
     const initialPriceTax = `${currency[index]}${iPriceTax}`;
-    console.log(cartsItem,'Cart');
-
+    console.log(this.props.carts,'Carts in');
+    console.log(this.props.pageCart,'pageCart');
+console.log('cartsItem', cartsItem);
     return (
       <>
         <div className="CartPageWrap">
@@ -270,9 +271,9 @@ class CartPage extends React.Component {
                   <div
                     className="ContBtn"
                     onClick={() => {
-                      console.log(cart?.attributes[0]?.value, "att.val");
+                     
                       cart.qty === 1
-                        ? this.props.removeProduct(cart.attributes[0].value)
+                        ? this.props.removeFromCartPage(cart?.id)
                         : this.handleDecrease(cart?.attributes[0]?.value);
                     }}
                   >
@@ -358,7 +359,7 @@ class CartPage extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     // dispatching actions returned by action creators
-    removeProduct: (id) => dispatch(removeProduct(id)),
+    removeFromCartPage: (id) => dispatch( removeFromCartPage(id)),
   };
 };
 

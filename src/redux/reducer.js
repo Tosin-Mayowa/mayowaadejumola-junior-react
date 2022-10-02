@@ -79,7 +79,7 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type ==="REMOVE"){
-  console.log('remove');
+
     return {...state, carts:state.carts.length===1?[]:[...state.carts.filter(cart=>cart.id!==action.payload)] }
   }
 
@@ -187,13 +187,28 @@ export default function reducer(state = initialState, action) {
   }
 
   if (action.type === "REMOVE FROM MODAL") {
+   
  
     return {
       ...state,
       carts:
         state.carts.length === 1
           ? [...state.carts.filter((cart) => cart.attributes[0].value !== action.payload)]
-          : [...state.carts.filter((cart) => cart.attributes[0].value !== action.payload)],
+          : [...state.carts.filter((cart) => cart.attributes[0].value === action.payload)],
+    };
+  }
+
+
+  if (action.type ==="REMOVE FROM CARTPAGE") {
+    console.log(action.payload,'action CARTPAGE');
+ console.log('redu pageCart',state.pageCart);
+ console.log(state,'statecarts');
+    return {
+      ...state,carts:[],
+      pageCart:
+        state.pageCart.length === 1
+          ? []
+          : [...state.pageCart.filter((page) => page.id !== action.payload)],
     };
   }
 

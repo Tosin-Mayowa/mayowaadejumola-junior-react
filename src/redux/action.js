@@ -13,3 +13,4 @@ export const removeProduct=(id)=>({ type:'REMOVE', payload:id});
 export const setOverflow=()=>({ type:'OVERFLOW'});
 export const addFromModal= (value) => ({ type: 'ADD FROM MODAL',payload:value });
 export const removeFromModal=(id)=>({ type:'REMOVE FROM MODAL', payload:id});
+export const removeFromCartPage=(id)=>({ type:'REMOVE FROM CARTPAGE', payload:id})
