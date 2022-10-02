@@ -256,7 +256,7 @@ class CartsModal extends React.Component {
                           : cart.qty === 1 &&
                             this?.props?.carts[0]?.attributes[0]?.items !==
                               undefined
-                          ? this.props.removeProduct(cart.id)
+                          ? this.props.removeProduct(cart?.attributes[0].value)
                           : removeFromModal(this.props.carts[0].attributes[0].value);
                       }}
                     >

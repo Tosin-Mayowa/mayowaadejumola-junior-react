@@ -136,8 +136,7 @@ export default function reducer(state = initialState, action) {
 
 
   if (action.type === "ADD FROM MODAL") {
-    console.log(action.payload,'actionpayMo');
-    console.log(action.payload.attributes,'act att in payMo');
+  
 
     let newState =
       state.pageCart.length === 0
@@ -200,15 +199,13 @@ export default function reducer(state = initialState, action) {
 
 
   if (action.type ==="REMOVE FROM CARTPAGE") {
-    console.log(action.payload,'action CARTPAGE');
- console.log('redu pageCart',state.pageCart);
- console.log(state,'statecarts');
+  console.log(action.payload);
     return {
       ...state,carts:[],
       pageCart:
         state.pageCart.length === 1
-          ? []
-          : [...state.pageCart.filter((page) => page.id !== action.payload)],
+          ? [...state.pageCart.filter((cart) => cart.attributes[0].value !== action.payload)]
+          : [...state.pageCart.filter((cart) => cart.attributes[0].value === action.payload)],
     };
   }
 

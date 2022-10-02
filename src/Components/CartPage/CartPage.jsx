@@ -273,7 +273,7 @@ console.log('cartsItem', cartsItem);
                     onClick={() => {
                      
                       cart.qty === 1
-                        ? this.props.removeFromCartPage(cart?.id)
+                        ? this.props.removeFromCartPage(cart?.attributes[0]?.value)
                         : this.handleDecrease(cart?.attributes[0]?.value);
                     }}
                   >
