@@ -3,7 +3,12 @@ import { connect } from "react-redux";
 import "./CartsModal.css";
 import { withRouter } from "../../withRouter";
 import CartModalChild from "../CartModalChild/CartModalChild";
-import { addFromModal, addToCartFromDesc, removeFromModal, removeProduct } from "../../redux/action";
+import {
+  addFromModal,
+  addToCartFromDesc,
+  removeFromModal,
+  removeProduct,
+} from "../../redux/action";
 import CartsModalSwatch from "../Swatch/CartsModalSwatch";
 class CartsModal extends React.Component {
   constructor(props) {
@@ -16,16 +21,16 @@ class CartsModal extends React.Component {
       })),
       totalAmount: 0,
       active: false,
-      attributes:[],
-      isDisabled:true,
-      swatchAttributes:[]
+      attributes: [],
+      isDisabled: true,
+      swatchAttributes: [],
     };
     this.handleIncrease = this.handleIncrease.bind(this);
     this.handleDecrease = this.handleDecrease.bind(this);
     this.navigatePage = this.navigatePage.bind(this);
-    this.getNewAtt=this.getNewAtt.bind(this);
-    this.setDisabled=this.setDisabled.bind(this);
-    this.getNewSwatchAtt=this.getNewSwatchAtt.bind(this)
+    this.getNewAtt = this.getNewAtt.bind(this);
+    this.setDisabled = this.setDisabled.bind(this);
+    this.getNewSwatchAtt = this.getNewSwatchAtt.bind(this);
   }
 
   handleIncrease(id, ind) {
@@ -89,15 +94,11 @@ class CartsModal extends React.Component {
     });
   }
 
-
-  getNewSwatchAtt(arr){
-   
-    const attributeSet=arr.filter(att=>att.clicked===true);
-    this.setState({  swatchAttributes: attributeSet});
+  getNewSwatchAtt(arr) {
+    const attributeSet = arr.filter((att) => att.clicked === true);
+    this.setState({ swatchAttributes: attributeSet });
   }
   getNewAtt(arr) {
-    
-
     const attributeSet = arr.filter((att) => att.clicked === true);
 
     this.setState((st, props) => {
@@ -115,8 +116,7 @@ class CartsModal extends React.Component {
   //   this.props.navigate("/PageFromModal");
   // }
 
-  setDisabled(val){
-    
+  setDisabled(val) {
     this.setState({ isDisabled: !val });
   }
 
@@ -162,9 +162,6 @@ class CartsModal extends React.Component {
     const price = `${currency[index]}${totalAmount}`;
     const initialPrice = `${currency[index]}${initialTotal}`;
 
-  
-
-
     if (this?.props?.carts?.length === 0) {
       return (
         <div className="ModalCartWrapper">
@@ -201,24 +198,25 @@ class CartsModal extends React.Component {
                   <p>{`${cart.prices[index].currency.symbol}${cart.prices[index].amount}`}</p>
                   <div className="ModalAttMainDivWrap">
                     {cart.attributes.map((att) => {
-                      if (att.type === "swatch" && att?.items===undefined) {
+                      if (att.type === "swatch" && att?.items === undefined) {
                         return (
                           <div key={att.name} className="ModalAttMainDiv">
                             <p>{att.value}</p>
                             <div className="ModalAttItemwrapper">
-                              
-                                <div  className={att.name}></div>
-                             
+                              <div className={att.name}></div>
                             </div>
                           </div>
                         );
-                      }else if(
-                        att.type === "swatch" && att?.items!==undefined
-                      ){
+                      } else if (
+                        att.type === "swatch" &&
+                        att?.items !== undefined
+                      ) {
                         return (
-                          <CartsModalSwatch  att={att}
-                          getNewSwatchAtt={this.getNewSwatchAtt}
-                          swatchClass={swatchClass}/>
+                          <CartsModalSwatch
+                            att={att}
+                            getNewSwatchAtt={this.getNewSwatchAtt}
+                            swatchClass={swatchClass}
+                          />
                           // <div key={att.id} className="ModalAttMainDiv">
                           //   <p>{att.name}</p>
                           //   <div className="ModalAttItemwrapper">
@@ -229,7 +227,13 @@ class CartsModal extends React.Component {
                           // </div>
                         );
                       } else {
-                        return <CartModalChild att={att} getNewAtt={this.getNewAtt} setDisabled={this.setDisabled}/>;
+                        return (
+                          <CartModalChild
+                            att={att}
+                            getNewAtt={this.getNewAtt}
+                            setDisabled={this.setDisabled}
+                          />
+                        );
                       }
                     })}
                   </div>
@@ -246,10 +250,14 @@ class CartsModal extends React.Component {
                     <div
                       className="ModalBtnSy"
                       onClick={() => {
-                        console.log('in moda',cart.qty);
-                        cart.qty === 1
-                          ? removeFromModal(cart.id)
-                          : this.handleDecrease(cart.id);
+                        console.log("in moda", cart.qty);
+                        cart.qty > 1
+                          ? this.handleDecrease(cart.id)
+                          : cart.qty === 1 &&
+                            this?.props?.carts[0]?.attributes[0]?.items !==
+                              undefined
+                          ? this.props.removeProduct(cart.id)
+                          : removeFromModal(this.props.carts[0].attributes[0].value);
                       }}
                     >
                       -
@@ -270,25 +278,56 @@ class CartsModal extends React.Component {
               <p>{active ? price : initialPrice}</p>
             </div>
             <div className="ModalButton">
-             {this?.props?.carts[0]?.attributes[0]?.items?.length!==undefined?<button className="ModalBtn-view" onClick={()=>{
-               console.log({addFromModal:addFromModal});
-               this.navigatePage();
-                this.props.addFromModal(  this.state.swatchAttributes.length === 0
-                  ? this.props.carts.map(cart=>({...cart,attributes:this?.state?.attributes}))
-                  : this.props.carts.map(cart=>({...cart,attributes:[...this?.state?.attributes,...this?.state?.swatchAttributes]})));
-              }}
-              disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
-              >
-                VIEW BAG
-              </button>:<button className="ModalBtn-view" onClick={()=>{
-                console.log('with elected att viewbtn');
-                this.navigatePage();
-                this.props.addToCartFromDesc( this.props.carts.map(cart=>({...cart,attributes:this?.state?.attributes})));
-              }}
-              disabled={this.state.isDisabled && !this.props.carts[0].attributes[0].clicked}
-              >
-                VIEW BAG
-              </button>} 
+              {this?.props?.carts[0]?.attributes[0]?.items?.length !==
+              undefined ? (
+                <button
+                  className="ModalBtn-view"
+                  onClick={() => {
+                    console.log({ addFromModal: addFromModal });
+                    this.navigatePage();
+                    this.props.addFromModal(
+                      this.state.swatchAttributes.length === 0
+                        ? this.props.carts.map((cart) => ({
+                            ...cart,
+                            attributes: this?.state?.attributes,
+                          }))
+                        : this.props.carts.map((cart) => ({
+                            ...cart,
+                            attributes: [
+                              ...this?.state?.attributes,
+                              ...this?.state?.swatchAttributes,
+                            ],
+                          }))
+                    );
+                  }}
+                  disabled={
+                    this.state.isDisabled &&
+                    !this.props.carts[0].attributes[0].clicked
+                  }
+                >
+                  VIEW BAG
+                </button>
+              ) : (
+                <button
+                  className="ModalBtn-view"
+                  onClick={() => {
+                    console.log("with elected att viewbtn");
+                    this.navigatePage();
+                    this.props.addToCartFromDesc(
+                      this.props.carts.map((cart) => ({
+                        ...cart,
+                        attributes: this?.state?.attributes,
+                      }))
+                    );
+                  }}
+                  disabled={
+                    this.state.isDisabled &&
+                    !this.props.carts[0].attributes[0].clicked
+                  }
+                >
+                  VIEW BAG
+                </button>
+              )}
               <button className="ModalBtn-view ModalLeft">CHECK OUT</button>
             </div>
           </div>
@@ -304,13 +343,18 @@ const mapDispatchToProps = (dispatch) => {
     removeProduct: (id) => dispatch(removeProduct(id)),
     addToCartFromDesc: (item) => dispatch(addToCartFromDesc(item)),
     addFromModal: (item) => dispatch(addFromModal(item)),
-    removeFromModal:(id)=>dispatch(removeFromModal(id))
+    removeFromModal: (id) => dispatch(removeFromModal(id)),
   };
 };
 
 function mapStateToProps(state) {
-  const { carts, pageCart,index, initialTotal } = state;
-  return { carts: carts, pageCart: pageCart,index: index, initialTotal: initialTotal };
+  const { carts, pageCart, index, initialTotal } = state;
+  return {
+    carts: carts,
+    pageCart: pageCart,
+    index: index,
+    initialTotal: initialTotal,
+  };
 }
 
 export default withRouter(

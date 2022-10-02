@@ -78,20 +78,9 @@ export default function reducer(state = initialState, action) {
     return { ...state, isOpenedSwitcher: false };
   }
 
-  if (action.type === "REMOVE") {
-  
-    return {
-      ...state,
-      carts: [],
-      pageCart:
-        state.pageCart.length === 1
-          ? []
-          : [
-              ...state.pageCart.filter(
-                (cart) => cart.attributes[0].value !== action.payload
-              ),
-            ],
-    };
+  if (action.type ==="REMOVE"){
+  console.log('remove');
+    return {...state, carts:state.carts.length===1?[]:[...state.carts.filter(cart=>cart.id!==action.payload)] }
   }
 
   if (action.type === "OVERFLOW") {
@@ -193,17 +182,18 @@ export default function reducer(state = initialState, action) {
       ...newState,
       pageCart: newState.pageCart?.map((item) => ({ ...item, qty: 1 })),
     };
-    console.log('realStateMo',realState);
+   
     return realState;
   }
 
   if (action.type === "REMOVE FROM MODAL") {
+ 
     return {
       ...state,
       carts:
         state.carts.length === 1
-          ? []
-          : [...state.carts.filter((cart) => cart.id !== action.payload)],
+          ? [...state.carts.filter((cart) => cart.attributes[0].value !== action.payload)]
+          : [...state.carts.filter((cart) => cart.attributes[0].value !== action.payload)],
     };
   }
 
