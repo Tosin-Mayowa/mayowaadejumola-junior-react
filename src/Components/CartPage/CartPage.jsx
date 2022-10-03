@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { removeFromCartPage} from "../../redux/action";
+import { removeFromCartPage, removeFromModal } from "../../redux/action";
 import "./CartPage.css";
 import Rectangle from "../Image/Rectangle.png";
 import Slide from "../Image/slide.png";
@@ -64,7 +64,6 @@ class CartPage extends React.Component {
   }
 
   handleDecrease(dispVal) {
-   
     const newItems = this.state.cartsItem.map((item) => {
       if (item.attributes[0].value === dispVal) {
         return {
@@ -172,7 +171,7 @@ class CartPage extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps?.pageCart !== this.props?.pageCart ||
-      prevProps?.cartsPage !== this.props.cartsPage
+      prevProps?.carts !== this.props.carts
     ) {
       const value =
         this.props.pageCart.length === 0
@@ -212,15 +211,13 @@ class CartPage extends React.Component {
     const initialPrice = `${currency[index]}${initialTotal}`;
     const iPriceTax = ((21 * initialTotal) / 100).toFixed(2);
     const initialPriceTax = `${currency[index]}${iPriceTax}`;
-    console.log(this.props.carts,'Carts in');
-    console.log(this.props.pageCart,'pageCart');
-console.log('cartsItem', cartsItem);
+    
     return (
       <>
         <div className="CartPageWrap">
           <h2 className="CartPageTitle">Cart</h2>
           {cartsItem?.map((cart) => (
-            <div className="PageMainDiv" >
+            <div className="PageMainDiv">
               <div className="PageAtt">
                 <p className="CartPageSubTitle">
                   {this.getPrefixText(cart.name)}
@@ -234,7 +231,7 @@ console.log('cartsItem', cartsItem);
 
                 <div className="PageCartAttMainDivWrap">
                   {cart?.attributes.map((att) => {
-                    if (att?.type === 'swatch') {
+                    if (att?.type === "swatch") {
                       return (
                         <div key={att.name} className="PageCartAttMainDiv">
                           <p>{att.value}</p>
@@ -271,10 +268,16 @@ console.log('cartsItem', cartsItem);
                   <div
                     className="ContBtn"
                     onClick={() => {
-                     
-                      cart.qty === 1
-                        ? this.props.removeFromCartPage(cart?.attributes[0]?.value)
-                        : this.handleDecrease(cart?.attributes[0]?.value);
+                      
+                      cart.qty > 1
+                        ? this.handleDecrease(cart?.attributes[0]?.value)
+                        : cart.qty === 1 && this.props.pageCart.length !== 0
+                        ? this.props.removeFromCartPage(
+                            cart?.attributes[0]?.value
+                          )
+                        : this.props.removeFromModal(
+                            this.props.carts[0].attributes[0].value
+                          );
                     }}
                   >
                     -
@@ -359,7 +362,8 @@ console.log('cartsItem', cartsItem);
 const mapDispatchToProps = (dispatch) => {
   return {
     // dispatching actions returned by action creators
-    removeFromCartPage: (id) => dispatch( removeFromCartPage(id)),
+    removeFromCartPage: (id) => dispatch(removeFromCartPage(id)),
+    removeFromModal: (id) => dispatch(removeFromModal(id)),
   };
 };
 

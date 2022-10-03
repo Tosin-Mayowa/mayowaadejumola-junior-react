@@ -187,7 +187,7 @@ export default function reducer(state = initialState, action) {
 
   if (action.type === "REMOVE FROM MODAL") {
    
- 
+   
     return {
       ...state,
       carts:
@@ -199,13 +199,13 @@ export default function reducer(state = initialState, action) {
 
 
   if (action.type ==="REMOVE FROM CARTPAGE") {
-  console.log(action.payload);
+ 
     return {
       ...state,carts:[],
       pageCart:
         state.pageCart.length === 1
           ? [...state.pageCart.filter((cart) => cart.attributes[0].value !== action.payload)]
-          : [...state.pageCart.filter((cart) => cart.attributes[0].value === action.payload)],
+          : [...state.pageCart.filter((cart) => cart.attributes[0].value !== action.payload)],
     };
   }
 
