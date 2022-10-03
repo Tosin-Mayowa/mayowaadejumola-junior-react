@@ -28,4 +28,7 @@
 .TechWrapper{
     margin-top: 50px;
     margin-left: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

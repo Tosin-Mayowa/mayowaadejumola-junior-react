@@ -1,6 +1,9 @@
 .ClothesWrapper{
     margin-top: 45px;
     margin-left: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 
